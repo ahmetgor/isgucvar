@@ -1,0 +1,8 @@
+{
+  "name": "isgucvar",
+  "app_id": "607812c9",
+  "type": "ionic-angular",
+  "integrations": {
+    "cordova": {}
+  }
+}
