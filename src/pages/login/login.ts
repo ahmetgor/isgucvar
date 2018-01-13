@@ -1,14 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AuthProvider } from '../../providers/auth';
-
-
-/**
- * Generated class for the LoginPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+declare var IN;
 
 @IonicPage()
 @Component({
@@ -25,7 +18,47 @@ export class LoginPage {
   }
 
   doAuth() {
-    this.auth.login();
+    if(IN.User.isAuthorized()){
+    console.log("hebe");
+    this.onLinkedInLoad();
+
   }
+    else console.log("gübe");
+    //this.auth.login();
+  }
+
+   onLinkedInLoad() {
+     console.log('onLinkedInLoad');
+    IN.Event.on(IN, "auth", this.getProfileData());
+    console.log('onLinkedInLoad1');
+}
+
+doLogout(){
+  IN.User.logout(() => console.log('asd'), () => console.log('qwe'));
+}
+
+doLogin() {
+IN.User.authorize(() => console.log('asd1'), () => console.log('qwe1'));
+}
+
+
+// Handle the successful return from the API call
+// function onSuccess(data) {
+//     console.log(data);
+// }
+//
+// // Handle an error response from the API call
+// function onError(error) {
+//     console.log(error);
+// }
+
+// Use the API call wrapper to request the member's basic profile data
+ getProfileData() {
+   console.log('getProfileData');
+    IN.API.Raw("/people/~").result((data) =>console.log(data))
+.error((error) =>console.log(error));
+console.log('getProfileData1');
+
+}
 
 }
