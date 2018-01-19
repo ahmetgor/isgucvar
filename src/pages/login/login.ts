@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AuthProvider } from '../../providers/auth';
+import { TabsPage } from '../tabs/tabs';
+import { GozatPage } from '../about/about';
+
 declare var IN;
 
 @IonicPage()
@@ -10,35 +13,39 @@ declare var IN;
 })
 export class LoginPage {
 
+  user: any;
+
   constructor(public navCtrl: NavController, public navParams: NavParams, public auth: AuthProvider) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
+    // this.doLogin();
   }
 
-  doAuth() {
-    if(IN.User.isAuthorized()){
-    console.log("hebe");
-    this.onLinkedInLoad();
+  // doAuth() {
+  //   if(IN.User.isAuthorized()){
+  // }
+  //   else console.log("gübe");
+  //   this.onLinkedInLoad();
+  // }
 
-  }
-    else console.log("gübe");
-    //this.auth.login();
-  }
-
-   onLinkedInLoad() {
-     console.log('onLinkedInLoad');
-    IN.Event.on(IN, "auth", this.getProfileData());
-    console.log('onLinkedInLoad1');
-}
+//    onLinkedInLoad() {
+//      console.log('onLinkedInLoad');
+//     IN.Event.on(IN, "auth", this.getProfileData());
+//     console.log('onLinkedInLoad1');
+// }
 
 doLogout(){
-  IN.User.logout(() => console.log('asd'), () => console.log('qwe'));
+  IN.User.logout(() => console.log('asd'));
 }
 
 doLogin() {
-IN.User.authorize(() => console.log('asd1'), () => console.log('qwe1'));
+IN.User.authorize(
+  () => {console.log('asd1');
+          this.getProfileData();
+        }
+  , () => console.log('qwe1'));
 }
 
 
@@ -55,10 +62,17 @@ IN.User.authorize(() => console.log('asd1'), () => console.log('qwe1'));
 // Use the API call wrapper to request the member's basic profile data
  getProfileData() {
    console.log('getProfileData');
-    IN.API.Raw("/people/~").result((data) =>console.log(data))
+    IN.API.Raw("/people/~:(id,formatted-name,location,industry,summary,specialties"+
+      ",positions,picture-urls::(original),site-standard-profile-request,email-address)")
+    .result((data) =>{
+      // console.log(JSON.stringify(data));
+      this.user = data;
+      this.navCtrl.push(TabsPage, {
+        user: this.user
+      });
+    })
 .error((error) =>console.log(error));
 console.log('getProfileData1');
 
 }
-
 }
