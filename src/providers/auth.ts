@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Http,Headers, Response } from '@angular/http';
+// import { Http,Headers, Response } from '@angular/http';
 import { Injectable } from '@angular/core';
 import { LoginPage } from '../pages/login/login';
 import {LoadingController} from 'ionic-angular';
@@ -17,7 +17,7 @@ export class AuthProvider {
 
   loading: any;
 
-  constructor(public http: HttpClient, public loadingCtrl: LoadingController,) {
+  constructor(public http: HttpClient, public loadingCtrl: LoadingController) {
     console.log('Hello AuthProvider Provider');
   }
 

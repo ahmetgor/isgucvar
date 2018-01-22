@@ -12,6 +12,7 @@ import { LoginPage } from '../pages/login/login';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { AuthProvider } from '../providers/auth';
+import { PersonProvider } from '../providers/person';
 import {HttpClientModule} from '@angular/common/http';
 import { HttpModule } from '@angular/http';
 
@@ -43,7 +44,8 @@ import { HttpModule } from '@angular/http';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    AuthProvider
+    AuthProvider,
+    PersonProvider
   ]
 })
 export class AppModule {}
