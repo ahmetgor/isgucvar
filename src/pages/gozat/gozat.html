@@ -14,10 +14,15 @@
     <ion-thumbnail item-start>
       <img class="img-circle" [src]=gozat.pictureUrls.values[0]>
     </ion-thumbnail>
+    <ion-row>
+      <ion-col>
     <h1 text-wrap>{{gozat.formattedName}}</h1>
-    <h2 text-wrap><ion-icon name="laptop"></ion-icon>
+  </ion-col>
+
+  </ion-row>
+    <h2 text-wrap><ion-icon name="laptop" color="primary"></ion-icon>
       {{gozat.positions.values[0].title}}</h2>
-    <h2 text-wrap> <ion-icon name="home"></ion-icon>
+    <h2 text-wrap> <ion-icon name="home" color="primary"></ion-icon>
       {{gozat.positions.values[0].company.name}}</h2>
   </ion-item>
 
@@ -34,12 +39,12 @@
   <ion-row margin-horizontal>
     <ion-col>
       <p>
-      <ion-icon name="pin"></ion-icon>
+      <ion-icon name="pin" color="primary"></ion-icon>
       {{gozat.location.name}}</p>
     </ion-col>
     <ion-col center text-end>
       <p>
-      <ion-icon name="briefcase"></ion-icon>
+      <ion-icon name="briefcase" color="primary"></ion-icon>
       {{gozat.positions.values[0].company.industry}}
     </p>
     </ion-col>
@@ -47,24 +52,31 @@
 <!-- </ion-item> -->
 
   <ion-row>
-    <ion-col  center text-center>
-      <button ion-button icon-left clear large color='secondary'>
-        <ion-icon name="thumbs-up"></ion-icon>
-        <!-- <div>Beğen</div> -->
-      </button>
-    </ion-col>
-    <ion-col  center text-center>
-      <button ion-button icon-left large clear >
-        <ion-icon name="repeat"></ion-icon>
-        <!-- <div>Sonra Bak</div> -->
-      </button>
-    </ion-col>
+
     <ion-col center text-center>
-      <button ion-button icon-left clear large color='danger'>
+      <button ion-button icon-only clear large color='danger'>
         <ion-icon name="thumbs-down"></ion-icon>
         <!-- <div>Beğenme</div> -->
       </button>
     </ion-col>
+
+    <ion-col  center text-center>
+      <button ion-button icon-only clear large color='secondary'>
+        <ion-icon name="thumbs-up"></ion-icon>
+        <!-- <div>Beğen</div> -->
+      </button>
+    </ion-col>
+    <!-- <ion-col  center text-center>
+      <button ion-button icon-only large clear >
+        <ion-icon name="repeat"></ion-icon>
+      </button>
+    </ion-col> -->
+    <ion-col center text-center>
+      <button ion-button icon-only large clear (click)="goLinked(gozat.siteStandardProfileRequest.url)">
+      <ion-icon name="logo-linkedin" large color="blue"></ion-icon>
+    </button>
+    </ion-col>
+
   </ion-row>
 
 </ion-card>

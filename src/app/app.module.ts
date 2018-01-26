@@ -3,9 +3,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 
-import { GozatPage } from '../pages/about/about';
-import { EslesmePage } from '../pages/contact/contact';
-import { TercihPage } from '../pages/home/home';
+import { GozatPage } from '../pages/gozat/gozat';
+import { EslesmePage } from '../pages/eslesme/eslesme';
+import { TercihPage } from '../pages/tercih/tercih';
 import { TabsPage } from '../pages/tabs/tabs';
 import { LoginPage } from '../pages/login/login';
 

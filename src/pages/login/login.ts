@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AuthProvider } from '../../providers/auth';
+import { PersonProvider } from '../../providers/person';
 import { TabsPage } from '../tabs/tabs';
-import { GozatPage } from '../about/about';
+import { GozatPage } from '../gozat/gozat';
 
 declare var IN;
 
@@ -13,9 +14,8 @@ declare var IN;
 })
 export class LoginPage {
 
-  user: any;
-
-  constructor(public navCtrl: NavController, public navParams: NavParams, public auth: AuthProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public auth: AuthProvider,
+              public personSer: PersonProvider) {
   }
 
   ionViewDidLoad() {
@@ -66,10 +66,16 @@ IN.User.authorize(
       ",positions,picture-urls::(original),site-standard-profile-request,email-address)")
     .result((data) =>{
       // console.log(JSON.stringify(data));
-      this.user = data;
-      this.navCtrl.push(TabsPage, {
-        user: this.user
-      });
+
+      this.personSer.updatePerson(data)
+      .then((res) => {
+        console.log(res);
+        this.navCtrl.push(TabsPage, {
+        });
+            }, (err) => {
+
+            });
+
     })
 .error((error) =>console.log(error));
 console.log('getProfileData1');

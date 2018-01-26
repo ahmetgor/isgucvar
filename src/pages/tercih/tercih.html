@@ -1,0 +1,80 @@
+<ion-header>
+  <!-- <ion-navbar>
+    <ion-title>Home</ion-title>
+  </ion-navbar> -->
+</ion-header>
+
+<ion-content >
+
+    <ion-item-divider color="light"></ion-item-divider>
+  <ion-item>
+  <ion-label floating>Pozisyon</ion-label>
+  <ion-select [(ngModel)]="catid" interface="popover" cancelText="İptal" okText="Tamam" (ionChange)="getSubcat()">
+    <ion-option *ngFor="let catitem of cat; let i = index" value="{{catitem.id}}">{{catitem.id}}</ion-option>
+  </ion-select>
+  </ion-item>
+
+  <!-- <button ion-button icon-only large clear (click)="goLinked()">
+  <ion-icon name="logo-linkedin" large color="blue"></ion-icon>
+</button> -->
+
+<div *ngIf="subcatList && subcatList.length != 0">
+    <ion-item>
+    <ion-label floating>Uzmanlık Seç:</ion-label>
+    <ion-select [(ngModel)]="subcatid" interface="popover" cancelText="İptal" okText="Tamam">
+      <ion-option *ngFor="let subcatitem of subcatList" value="{{subcatitem}}">{{subcatitem}}</ion-option>
+    </ion-select>
+    </ion-item>
+    <button ion-button icon-start small clear align="center" color="secondary"
+          style="text-transform: none;"  (click)="addTag()">
+    <ion-icon name="add"></ion-icon>
+          Ekle
+      </button>
+</div>
+
+<div *ngIf="person.uzmanlik && person.uzmanlik.length != 0">
+<ion-grid>
+<ion-row *ngFor="let uzmanitem of person.uzmanlik">
+  <ion-col col-auto>
+    <ion-item>
+    <ion-label floating>Uzmanlık</ion-label>
+    <ion-input type="text" [(ngModel)]="uzmanitem.id" disabled></ion-input>
+    </ion-item>
+  </ion-col>
+  <ion-col col-auto>
+    <ion-item>
+        <ion-label floating>Çalışılan Yıl</ion-label>
+        <ion-input type="number" [(ngModel)]="uzmanitem.yil" min="1" max="40" required></ion-input>
+    </ion-item>
+  </ion-col>
+<ion-col col-auto>
+  <button ion-button small clear icon-only (click)="removeTag(uzmanitem.id)">
+<ion-icon name="remove-circle"></ion-icon>
+</button>
+</ion-col>
+</ion-row>
+</ion-grid>
+</div>
+
+  <ion-item-divider color="light"></ion-item-divider>
+<ion-item>
+<ion-label floating>Çalışma Tipi</ion-label>
+<ion-select [(ngModel)]="person.tip" cancelText="İptal" okText="Tamam" required>
+  <ion-option value=1>Tam Zamanlı</ion-option>
+  <ion-option value=2>Proje Bazlı</ion-option>
+  <ion-option value=3>Stajyer</ion-option>
+</ion-select>
+</ion-item>
+
+<ion-item>
+    <ion-label floating>Aylık min net maaş beklentisi (TL)</ion-label>
+    <ion-input type="number" [(ngModel)]="person.maas" min="0" required></ion-input>
+</ion-item>
+
+<ion-item-divider color="light"></ion-item-divider>
+<button ion-button block icon-left [disabled]="" (click)="save()">
+  <ion-icon name="create"></ion-icon>
+  Güncelle
+</button>
+
+</ion-content>
