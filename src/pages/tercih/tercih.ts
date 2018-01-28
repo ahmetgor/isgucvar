@@ -29,8 +29,9 @@ subcatid: string;
 subcatList: Array<string> = [];
 
   constructor(public navCtrl: NavController, public personSer: PersonProvider) {
-    this.person = this.personSer.person;
-    console.log(this.cat);
+    // this.person = this.personSer.person;
+    this.person = JSON.parse(JSON.stringify(this.personSer.person));
+    // console.log(this.cat);
   }
 
   getSubcat() {
@@ -48,7 +49,8 @@ subcatList: Array<string> = [];
   }
 
   save() {
-    
+    this.personSer.person = this.person;
+    console.log(JSON.stringify(this.personSer.person)+"save()");
   }
 
   goLinked() {

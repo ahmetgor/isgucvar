@@ -1,7 +1,7 @@
 <ion-header>
-  <!-- <ion-navbar>
-    <ion-title>Home</ion-title>
-  </ion-navbar> -->
+  <ion-navbar>
+    <ion-title>Kriterlerim</ion-title>
+  </ion-navbar>
 </ion-header>
 
 <ion-content >
@@ -59,7 +59,7 @@
   <ion-item-divider color="light"></ion-item-divider>
 <ion-item>
 <ion-label floating>Çalışma Tipi</ion-label>
-<ion-select [(ngModel)]="person.tip" cancelText="İptal" okText="Tamam" required>
+<ion-select [(ngModel)]="person.tip" multiple="true" cancelText="İptal" okText="Tamam" required>
   <ion-option value=1>Tam Zamanlı</ion-option>
   <ion-option value=2>Proje Bazlı</ion-option>
   <ion-option value=3>Stajyer</ion-option>

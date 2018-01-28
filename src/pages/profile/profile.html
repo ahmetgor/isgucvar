@@ -1,0 +1,94 @@
+<!--
+  Generated template for the ProfilePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <!-- <ion-navbar>
+    <ion-title>profile</ion-title>
+  </ion-navbar> -->
+
+</ion-header>
+
+
+<ion-content>
+<div *ngIf="person">
+
+  <ion-card>
+
+  <ion-item>
+    <ion-thumbnail item-start>
+      <img class="img-circle" [src]=person.pictureUrls.values[0]>
+    </ion-thumbnail>
+    <ion-row>
+      <ion-col>
+    <h1 text-wrap>{{person.formattedName}}</h1>
+  </ion-col>
+
+  </ion-row>
+    <h2 text-wrap><ion-icon name="laptop" color="primary"></ion-icon>
+      {{person.positions.values[0].title}}</h2>
+    <h2 text-wrap> <ion-icon name="home" color="primary"></ion-icon>
+      {{person.positions.values[0].company.name}}</h2>
+  </ion-item>
+
+  <ion-card-content *ngIf="person.summary">
+    <p>{{person.summary}}</p>
+  </ion-card-content>
+
+  <ion-card-content *ngIf="!person.summary">
+    <p >{{person.positions.values[0].summary}}</p>
+  </ion-card-content>
+
+  <ion-row margin-horizontal>
+    <ion-col>
+      <p>
+      <ion-icon name="pin" color="primary"></ion-icon>
+      {{person.location.name}}</p>
+    </ion-col>
+    <ion-col center text-end>
+      <p>
+      <ion-icon name="briefcase" color="primary"></ion-icon>
+      {{person.positions.values[0].company.industry}}
+    </p>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+
+    <ion-col center text-left>
+      <button ion-button icon-left clear  color='secondary' (click)="goTercih()">
+        <ion-icon name="create"></ion-icon>
+        Kriter Seç
+      </button>
+    </ion-col>
+    <ion-col center text-right>
+      <button ion-button icon-left  clear (click)="goSettings()">
+      <ion-icon name="settings" large color="primary"></ion-icon>
+      Ayarlar
+    </button>
+    </ion-col>
+
+  </ion-row>
+</ion-card>
+
+<ion-card>
+  <ion-card-header>
+
+  <b>Kriterlerim</b>
+</ion-card-header>
+
+  <ion-item text-wrap>
+  <ion-grid>
+  <ion-row *ngFor="let uzmanitem of person.uzmanlik">
+    <ion-col col-5><h4>{{uzmanitem.id}}</h4></ion-col> <ion-col><h4>{{uzmanitem.yil}}</h4></ion-col>
+  </ion-row>
+  </ion-grid>
+</ion-item>
+
+  </ion-card>
+
+</div>
+</ion-content>

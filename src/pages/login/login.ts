@@ -22,7 +22,6 @@ export class LoginPage {
     console.log('ionViewDidLoad LoginPage');
     // this.doLogin();
   }
-
   // doAuth() {
   //   if(IN.User.isAuthorized()){
   // }
@@ -40,6 +39,28 @@ doLogout(){
   IN.User.logout(() => console.log('asd'));
 }
 
+getProfileData() {
+  console.log('getProfileData');
+   IN.API.Raw("/people/~:(id,formatted-name,location,industry,summary,specialties"+
+     ",positions,picture-urls::(original),site-standard-profile-request,email-address)")
+   .result((data) =>{
+     // console.log(JSON.stringify(data));
+
+     this.personSer.updatePerson(data)
+     .then((res) => {
+       console.log(res);
+       this.navCtrl.push(TabsPage, {
+       });
+           }, (err) => {
+
+           });
+
+   })
+.error((error) =>console.log(error));
+console.log('getProfileData1');
+
+}
+
 doLogin() {
 IN.User.authorize(
   () => {console.log('asd1');
@@ -47,7 +68,6 @@ IN.User.authorize(
         }
   , () => console.log('qwe1'));
 }
-
 
 // Handle the successful return from the API call
 // function onSuccess(data) {
@@ -60,25 +80,4 @@ IN.User.authorize(
 // }
 
 // Use the API call wrapper to request the member's basic profile data
- getProfileData() {
-   console.log('getProfileData');
-    IN.API.Raw("/people/~:(id,formatted-name,location,industry,summary,specialties"+
-      ",positions,picture-urls::(original),site-standard-profile-request,email-address)")
-    .result((data) =>{
-      // console.log(JSON.stringify(data));
-
-      this.personSer.updatePerson(data)
-      .then((res) => {
-        console.log(res);
-        this.navCtrl.push(TabsPage, {
-        });
-            }, (err) => {
-
-            });
-
-    })
-.error((error) =>console.log(error));
-console.log('getProfileData1');
-
-}
 }
