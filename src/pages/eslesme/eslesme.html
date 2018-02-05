@@ -8,4 +8,61 @@
 
 <ion-content>
 
+<div *ngIf="eslesmeList">
+
+  <ion-card *ngFor="let eslesme of eslesmeList">
+
+  <ion-item>
+    <ion-thumbnail item-start>
+      <img class="img-circle" [src]=eslesme.pictureUrls.values[0]>
+    </ion-thumbnail>
+    <ion-row>
+      <ion-col>
+    <h1 text-wrap>{{eslesme.formattedName}}</h1>
+  </ion-col>
+
+  </ion-row>
+    <h3 text-wrap><ion-icon name="laptop" color="primary"></ion-icon>
+      {{eslesme.positions.values[0].title}}</h3>
+    <h3 text-wrap> <ion-icon name="home" color="primary"></ion-icon>
+      {{eslesme.positions.values[0].company.name}}</h3>
+  </ion-item>
+
+  <ion-card-content *ngIf="eslesme.summary">
+    <p>{{eslesme.summary}}</p>
+  </ion-card-content>
+
+  <ion-card-content *ngIf="!eslesme.summary">
+    <p >{{eslesme.positions.values[0].summary}}</p>
+  </ion-card-content>
+
+  <ion-item>
+  <ion-row margin-horizontal>
+    <ion-col>
+      <p>
+      <ion-icon name="pin" color="primary"></ion-icon>
+      {{eslesme.location.name}}</p>
+    </ion-col>
+    <ion-col center text-end>
+      <p>
+      <ion-icon name="briefcase" color="primary"></ion-icon>
+      {{eslesme.positions.values[0].company.industry}}
+    </p>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <p><ion-icon name="mail" color="primary"></ion-icon>
+      {{eslesme.emailAddress}}</p>
+    </ion-col>
+    <ion-col center text-end>
+      <p><ion-icon name="call" color="primary"></ion-icon>
+      {{eslesme.telefon}}</p>
+    </ion-col>
+  </ion-row>
+</ion-item>
+
+</ion-card>
+</div>
+
 </ion-content>

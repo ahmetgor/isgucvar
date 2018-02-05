@@ -31,7 +31,7 @@ export class ProfilePage {
   }
 
   goTercih() {
-    console.log(JSON.stringify(this.person)+"gotercih");
+    // console.log(JSON.stringify(this.person)+"gotercih");
     console.log(JSON.stringify(this.personSer.person)+"gotercihperson")
     this.navCtrl.push(TercihPage, {
     })

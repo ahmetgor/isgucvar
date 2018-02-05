@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { PersonProvider } from '../../providers/person';
 
 /**
  * Generated class for the SettingsPage page.
@@ -15,11 +16,14 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class SettingsPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  person: any;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, public personSer: PersonProvider) {
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad SettingsPage');
+  ionViewDidEnter() {
+    console.log('ionViewDidLoad GozatPage1');
+    this.person = this.personSer.person;
   }
 
 }

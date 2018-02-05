@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { AuthProvider } from '../../providers/auth';
+// import { AuthProvider } from '../../providers/auth';
 import { PersonProvider } from '../../providers/person';
 import { TabsPage } from '../tabs/tabs';
 import { GozatPage } from '../gozat/gozat';
@@ -14,8 +14,7 @@ declare var IN;
 })
 export class LoginPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public auth: AuthProvider,
-              public personSer: PersonProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public personSer: PersonProvider) {
   }
 
   ionViewDidLoad() {
@@ -54,7 +53,6 @@ getProfileData() {
            }, (err) => {
 
            });
-
    })
 .error((error) =>console.log(error));
 console.log('getProfileData1');

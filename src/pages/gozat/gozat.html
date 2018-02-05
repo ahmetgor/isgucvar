@@ -1,9 +1,5 @@
 <ion-header>
-  <!-- <ion-navbar>
-    <ion-title>
-      About
-    </ion-title>
-  </ion-navbar> -->
+
 </ion-header>
 
 <ion-content>
@@ -20,10 +16,10 @@
   </ion-col>
 
   </ion-row>
-    <h2 text-wrap><ion-icon name="laptop" color="primary"></ion-icon>
-      {{gozat.positions.values[0].title}}</h2>
-    <h2 text-wrap> <ion-icon name="home" color="primary"></ion-icon>
-      {{gozat.positions.values[0].company.name}}</h2>
+    <h3 text-wrap><ion-icon name="laptop" color="primary"></ion-icon>
+      {{gozat.positions.values[0].title}}</h3>
+    <h3 text-wrap> <ion-icon name="home" color="primary"></ion-icon>
+      {{gozat.positions.values[0].company.name}}</h3>
   </ion-item>
 
   <ion-card-content *ngIf="gozat.summary">
@@ -34,6 +30,7 @@
     <p >{{gozat.positions.values[0].summary}}</p>
   </ion-card-content>
 
+  <ion-item>
   <ion-row margin-horizontal>
     <ion-col>
       <p>
@@ -47,28 +44,38 @@
     </p>
     </ion-col>
   </ion-row>
+</ion-item>
 <!-- </ion-item> -->
 
-  <ion-row>
+<ion-list>
+  <!-- <ion-list-header>
+  </ion-list-header> -->
+  <ion-item>
+    <ion-note item-start> Uyum:</ion-note>
+    <ion-badge item-end color="secondary">% {{gozat.puan}}</ion-badge>
 
+    <ion-range item-end min="0" max="100" step="5" snaps="true" [(ngModel)]="gozat.puan" color="primary" disabled>
+      <ion-icon range-left color="danger" name="help-circle"></ion-icon>
+      <ion-icon range-right color="secondary" name="happy"></ion-icon>
+    </ion-range>
+  </ion-item>
+</ion-list>
+
+  <ion-row>
     <ion-col center text-center>
-      <button ion-button icon-only clear large color='danger'>
+      <button ion-button icon-only clear large color='danger' (click)="dislike(gozat.id)">
         <ion-icon name="thumbs-down"></ion-icon>
         <!-- <div>Beğenme</div> -->
       </button>
     </ion-col>
 
     <ion-col  center text-center>
-      <button ion-button icon-only clear large color='secondary'>
+      <button ion-button icon-only clear large color='secondary' (click)="like(gozat.id)">
         <ion-icon name="thumbs-up"></ion-icon>
         <!-- <div>Beğen</div> -->
       </button>
     </ion-col>
-    <!-- <ion-col  center text-center>
-      <button ion-button icon-only large clear >
-        <ion-icon name="repeat"></ion-icon>
-      </button>
-    </ion-col> -->
+
     <ion-col center text-center>
       <button ion-button icon-only large clear (click)="goLinked(gozat.siteStandardProfileRequest.url)">
       <ion-icon name="logo-linkedin" large color="blue"></ion-icon>
