@@ -18,6 +18,7 @@ import { AuthProvider } from '../providers/auth';
 import { PersonProvider } from '../providers/person';
 import {HttpClientModule} from '@angular/common/http';
 import { HttpModule } from '@angular/http';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,8 @@ import { HttpModule } from '@angular/http';
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthProvider,
-    PersonProvider
+    PersonProvider,
+    InAppBrowser
   ]
 })
 export class AppModule {}

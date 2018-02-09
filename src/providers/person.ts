@@ -14,7 +14,8 @@ import {LoadingController, ToastController} from 'ionic-angular';
 @Injectable()
 export class PersonProvider {
 
-  url : string = 'http://127.0.0.1:8080/api/persons/';
+  // url : string = 'http://127.0.0.1:8080/api/persons/';
+  url : string = 'https://isgucvarserver.herokuapp.com/api/persons/'
 
   loading: any;
   person: any;
