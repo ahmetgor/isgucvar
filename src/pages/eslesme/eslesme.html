@@ -37,7 +37,7 @@
   </ion-card-content>
 
   <ion-item>
-  <ion-row margin-horizontal>
+  <ion-row>
     <ion-col>
       <p>
       <ion-icon name="pin" color="primary"></ion-icon>
@@ -60,6 +60,34 @@
       {{eslesme.telefon}}</p>
     </ion-col>
   </ion-row>
+  <ion-row>
+  <ion-col center text-start>
+    <button ion-button clear small icon-left (click)="goLink(eslesme.github)">
+      <ion-icon name="logo-github" color="primary"></ion-icon>
+      Github
+    </button>
+  </ion-col>
+  <ion-col center text-end>
+    <button ion-button clear small icon-left color="blue" (click)="goLink(eslesme.siteStandardProfileRequest.url)">
+    <ion-icon name="logo-linkedin"></ion-icon>
+    LinkedIn
+  </button>
+  </ion-col>
+</ion-row>
+</ion-item>
+<ion-item>
+  <!-- <ion-buttons start> -->
+  <button ion-button item-start icon-left (click)="remove(eslesme.id)">
+    <ion-icon name="backspace"></ion-icon>
+    Listeden Çıkar
+  </button>
+<!-- </ion-buttons>
+  <ion-buttons end> -->
+<button ion-button item-end icon-left color="secondary" (click)="chat(eslesme.id, eslesme.formattedName)">
+  <ion-icon name="chatbubbles"></ion-icon>
+  Mesajlar
+</button>
+<!-- </ion-buttons> -->
 </ion-item>
 
 </ion-card>

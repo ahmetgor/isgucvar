@@ -12,7 +12,53 @@
 
 </ion-header>
 
-
 <ion-content padding>
+  <ion-item-group>
+    <ion-item-divider color="light">Bildirimler</ion-item-divider>
+<ion-item>
+  <ion-label>Uygulama Bildirimleri</ion-label>
+  <ion-toggle item-end checked="true"></ion-toggle>
+</ion-item>
+<ion-item>
+  <ion-label>Email Bildirimleri</ion-label>
+  <ion-toggle item-end checked="false"></ion-toggle>
+</ion-item>
+</ion-item-group>
 
+<ion-item-group>
+  <ion-item-divider color="light">Geri Bildirim</ion-item-divider>
+<button ion-item (click)="mailTo()">
+  <ion-icon item-start name="bulb"></ion-icon>
+Destek & Öneri
+</button>
+<button ion-item>
+  <ion-icon item-start name="star"></ion-icon>
+Uygulamayı Oyla
+</button>
+</ion-item-group>
+
+<ion-item-group>
+<ion-item-divider color="light">Yasal</ion-item-divider>
+<button ion-item>
+Gizlilik
+</button>
+<button ion-item>
+Hükümler & Şartlar
+</button>
+<button ion-item>
+Sürüm Bilgisi: 1.0.0
+</button>
+</ion-item-group>
+
+<ion-item-group>
+<ion-item-divider color="light">Hesabım</ion-item-divider>
+<button ion-item (click)="doLogout()">
+  <ion-icon item-start name="log-out"></ion-icon>
+Çıkış
+</button>
+<button ion-item (click)="doLogout()">
+  <ion-icon item-start name="trash"></ion-icon>
+Hesabımı Sil
+</button>
+</ion-item-group>
 </ion-content>

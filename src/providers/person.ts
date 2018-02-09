@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { LoginPage } from '../pages/login/login';
-import {LoadingController} from 'ionic-angular';
+import {LoadingController, ToastController} from 'ionic-angular';
 // import 'rxjs/add/operator/map';
 // import { Observable } from 'rxjs';
 
@@ -20,7 +20,7 @@ export class PersonProvider {
   person: any;
   sehirler: Array<string>;
 
-  constructor(public http: HttpClient, public loadingCtrl: LoadingController) {
+  constructor(public http: HttpClient, public loadingCtrl: LoadingController, public toastCtrl: ToastController) {
     console.log('Hello PersonProvider Provider');
     this.getSehirler();
   }
@@ -90,53 +90,85 @@ export class PersonProvider {
     });
   }
 
-    getPersons(person: any){
+    getPersons(person: any, slice: number){
 
       let headers = new HttpHeaders();
       let params = new HttpParams();
       // params.set('person', JSON.stringify(person));
       // params.append('person', JSON.stringify(person));
 
-      this.showLoader();
+      // this.showLoader();
         // headers.append('Authorization', this.authService.token);
         headers.append('Content-Type', 'application/json');
         console.log(JSON.stringify(params));
-
+        person.slice = slice;
         return new Promise((resolve, reject) => {
         this.http.post(this.url
           // + `?person=${JSON.stringify(person)}`
           ,person
           , {headers: headers})
           .subscribe(data => {
-            this.loading.dismiss();
+            // this.loading.dismiss();
             resolve(data);
           }, (err) => {
             // reject(err);
-            this.loading.dismiss();
+            // this.loading.dismiss();
           });
       });
     }
 
     getEslesme(like: Array<any>, personId: string){
 
-      this.showLoader();
+      // this.showLoader();
       let headers = new HttpHeaders();
         // headers.append('Authorization', this.authService.token);
         headers.append('Content-Type', 'application/json');
         return new Promise((resolve, reject) => {
         this.http.get(this.url+'eslesme/' + `?like=${like}&id=${personId}`, {headers: headers})
           .subscribe(data => {
-            this.loading.dismiss();
+            // this.loading.dismiss();
             resolve(data);
           }, (err) => {
             // reject(err);
-            this.loading.dismiss();
+            // this.loading.dismiss();
           });
       });
     }
 
-      showLoader(){
+    sendMessage(message: any, operation: string) {
+      return new Promise((resolve, reject) => {
 
+        let headers = new HttpHeaders();
+        headers.append('Content-Type', 'application/json');
+        // headers.append('Authorization', this.authService.token);
+        this.http.put(this.url + 'message/' + `?operation=${operation}`, message, {headers: headers})
+          .subscribe(res => {
+            // this.loading.dismiss();
+            this.presentToast('Mesaj '+ operation + '!');
+
+            console.log(res);
+            resolve(res);
+          }, (err) => {
+            this.presentToast('Hata oluştu, lütfen tekrar deneyin!');
+          });
+      });
+    }
+
+    presentToast(message) {
+    let toast = this.toastCtrl.create({
+      message: message,
+      duration: 4000,
+      position: 'top',
+      showCloseButton: true,
+      closeButtonText: 'OK'
+    });
+    toast.onDidDismiss(() => {
+      // console.log('Dismissed toast');
+    });
+    toast.present();
+  }
+
+      showLoader(){
           this.loading = this.loadingCtrl.create({
               content: 'İşlem yapılıyor...'
           });
@@ -144,87 +176,13 @@ export class PersonProvider {
       }
 
     getSehirler() {
-      this.sehirler = ["Adana",
-"Adıyaman",
-"Afyon",
-"Ağrı",
-"Amasya",
-"Ankara",
-"Antalya",
-"Artvin",
-"Aydın",
-"Balıkesir",
-"Bilecik",
-"Bingöl",
-"Bitlis",
-"Bolu",
-"Burdur",
-"Bursa",
-"Çanakkale",
-"Çankırı",
-"Çorum",
-"Denizli",
-"Diyarbakır",
-"Edirne",
-"Elazığ",
-"Erzincan",
-"Erzurum",
-"Eskişehir",
-"Gaziantep",
-"Giresun",
-"Gümüşhane",
-"Hakkari",
-"Hatay",
-"Isparta",
-"İçel (Mersin)",
-"İstanbul",
-"İzmir",
-"Kars",
-"Kastamonu",
-"Kayseri",
-"Kırklareli",
-"Kırşehir",
-"Kocaeli",
-"Konya",
-"Kütahya",
-"Malatya",
-"Manisa",
-"K.maraş",
-"Mardin",
-"Muğla",
-"Muş",
-"Nevşehir",
-"Niğde",
-"Ordu",
-"Rize",
-"Sakarya",
-"Samsun",
-"Siirt",
-"Sinop",
-"Sivas",
-"Tekirdağ",
-"Tokat",
-"Trabzon",
-"Tunceli",
-"Şanlıurfa",
-"Uşak",
-"Van",
-"Yozgat",
-"Zonguldak",
-"Aksaray",
-"Bayburt",
-"Karaman",
-"Kırıkkale",
-"Batman",
-"Şırnak",
-"Bartın",
-"Ardahan",
-"Iğdır",
-"Yalova",
-"Karabük",
-"Kilis",
-"Osmaniye",
-"Düzce"
+      this.sehirler = ["Adana","Adıyaman","Afyon","Ağrı","Amasya","Ankara","Antalya","Artvin","Aydın",
+"Balıkesir","Bilecik","Bingöl","Bitlis","Bolu","Burdur","Bursa","Çanakkale","Çankırı","Çorum","Denizli",
+"Diyarbakır","Edirne","Elazığ","Erzincan","Erzurum","Eskişehir","Gaziantep","Giresun","Gümüşhane","Hakkari","Hatay","Isparta",
+"İçel (Mersin)","İstanbul","İzmir","Kars","Kastamonu","Kayseri","Kırklareli","Kırşehir","Kocaeli","Konya","Kütahya",
+"Malatya","Manisa","K.maraş","Mardin","Muğla","Muş","Nevşehir","Niğde","Ordu","Rize","Sakarya","Samsun","Siirt","Sinop",
+"Sivas","Tekirdağ","Tokat","Trabzon","Tunceli","Şanlıurfa","Uşak","Van","Yozgat","Zonguldak","Aksaray","Bayburt",
+"Karaman","Kırıkkale","Batman","Şırnak","Bartın","Ardahan","Iğdır","Yalova","Karabük","Kilis","Osmaniye","Düzce"
       ];
       // console.log(this.sehirler);
     }

@@ -20,23 +20,8 @@ export class LoginPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
     // this.doLogin();
+    // this.getProfileData();
   }
-  // doAuth() {
-  //   if(IN.User.isAuthorized()){
-  // }
-  //   else console.log("gübe");
-  //   this.onLinkedInLoad();
-  // }
-
-//    onLinkedInLoad() {
-//      console.log('onLinkedInLoad');
-//     IN.Event.on(IN, "auth", this.getProfileData());
-//     console.log('onLinkedInLoad1');
-// }
-
-doLogout(){
-  IN.User.logout(() => console.log('asd'));
-}
 
 getProfileData() {
   console.log('getProfileData');
@@ -54,7 +39,7 @@ getProfileData() {
 
            });
    })
-.error((error) =>console.log(error));
+.error((error) =>console.log(error+"hebe"));
 console.log('getProfileData1');
 
 }
@@ -67,15 +52,26 @@ IN.User.authorize(
   , () => console.log('qwe1'));
 }
 
+// doAuth() {
+//   if(IN.User.isAuthorized()){
+// }
+//   else console.log("gübe");
+//   this.onLinkedInLoad();
+// }
+
+//    onLinkedInLoad() {
+//      console.log('onLinkedInLoad');
+//     IN.Event.on(IN, "auth", this.getProfileData());
+//     console.log('onLinkedInLoad1');
+// }
+
 // Handle the successful return from the API call
 // function onSuccess(data) {
 //     console.log(data);
 // }
-//
 // // Handle an error response from the API call
 // function onError(error) {
 //     console.log(error);
 // }
 
-// Use the API call wrapper to request the member's basic profile data
 }

@@ -5,10 +5,18 @@
 </ion-header>
 
 <ion-content >
-    <ion-item-divider color="light">Uzmanlık Bilgileri:</ion-item-divider>
+
+  <form #tercihForm="ngForm">
+
+    <ion-item-divider color="light">
+      <ion-badge>
+      Uzmanlık Bilgileri:
+    </ion-badge>
+      <ion-icon item-end color="primary" name="information-circle" (click)="infoPressed()"></ion-icon>
+    </ion-item-divider>
   <ion-item>
-  <ion-label floating>Pozisyon</ion-label>
-  <ion-select [(ngModel)]="catid" interface="popover" cancelText="İptal" okText="Tamam" (ionChange)="getSubcat()">
+  <ion-label floating>Pozisyon Seçin</ion-label>
+  <ion-select [(ngModel)]="catid" interface="popover" cancelText="İptal" okText="Tamam" (ionChange)="getSubcat()" name="catid">
     <ion-option *ngFor="let catitem of cat; let i = index" value="{{catitem.id}}">{{catitem.id}}</ion-option>
   </ion-select>
   </ion-item>
@@ -18,8 +26,8 @@
 
 <div *ngIf="subcatList && subcatList.length != 0">
     <ion-item>
-    <ion-label floating>Uzmanlık Seç:</ion-label>
-    <ion-select [(ngModel)]="subcatid" interface="popover" cancelText="İptal" okText="Tamam">
+    <ion-label floating>Uzmanlık Seçin</ion-label>
+    <ion-select [(ngModel)]="subcatid" interface="popover" cancelText="İptal" okText="Tamam" name="subcatid">
       <ion-option *ngFor="let subcatitem of subcatList" value="{{subcatitem}}">{{subcatitem}}</ion-option>
     </ion-select>
     </ion-item>
@@ -37,13 +45,13 @@
   <ion-col col-auto>
     <ion-item>
     <ion-label floating>Uzmanlık</ion-label>
-    <ion-input type="text" [(ngModel)]="uzmanitem.id" readonly></ion-input>
+    <ion-input type="text" [(ngModel)]="uzmanitem.id" readonly [ngModelOptions]="{standalone: true}"></ion-input>
     </ion-item>
   </ion-col>
   <ion-col col-auto>
     <ion-item>
         <ion-label floating>Tecrübe (yıl)</ion-label>
-        <ion-input type="number" [(ngModel)]="uzmanitem.yil" min="1" max="40" required></ion-input>
+        <ion-input type="number" [(ngModel)]="uzmanitem.yil" min="1" max="40" required [ngModelOptions]="{standalone: true}"></ion-input>
     </ion-item>
   </ion-col>
 <ion-col col-auto>
@@ -55,13 +63,16 @@
 </ion-grid>
 </div>
 
-<ion-item-divider color="light">Bilgi ve Tecrübeler:</ion-item-divider>
-<!-- <div *ngIf="person.tags"> -->
+<ion-item-divider color="light">
+<ion-badge>
+  Bilgi ve Tecrübeler:
+</ion-badge>
+</ion-item-divider>
 
 <ion-list>
 <ion-item>
-<ion-label floating>Bilgi & Beceri</ion-label>
-<ion-input type="text" [(ngModel)]="tagid"  [formControl]="searchControl" clearInput="true">
+<ion-label floating>Bilgi & Beceri Seçin</ion-label>
+<ion-input type="text" [(ngModel)]="tagid"  [formControl]="searchControl" clearInput="true" name="tagid">
 </ion-input>
 </ion-item>
 
@@ -87,7 +98,7 @@ Ekle
     <ion-list>
     <ion-item>
     <ion-label floating>Bilgi & Beceri</ion-label>
-    <ion-input #bilgi type="text" [(ngModel)]="tagitem.id" readonly></ion-input>
+    <ion-input #bilgi type="text" [(ngModel)]="tagitem.id" readonly [ngModelOptions]="{standalone: true}"></ion-input>
     </ion-item>
   </ion-list>
 
@@ -96,7 +107,7 @@ Ekle
   <ion-col col-auto>
     <ion-item>
         <ion-label floating>Tecrübe (yıl)</ion-label>
-        <ion-input type="number" [(ngModel)]="tagitem.yil" min="1" max="40" required></ion-input>
+        <ion-input type="number" [(ngModel)]="tagitem.yil" min="1" max="40" required [ngModelOptions]="{standalone: true}"></ion-input>
     </ion-item>
   </ion-col>
 <ion-col col-auto>
@@ -109,10 +120,14 @@ Ekle
 
 </div>
 
-  <ion-item-divider color="light">Diğer Bilgiler:</ion-item-divider>
+<ion-item-divider color="light">
+<ion-badge>
+  Diğer Bilgiler
+</ion-badge>
+</ion-item-divider>
 <ion-item>
 <ion-label floating>Çalışma Tipi</ion-label>
-<ion-select [(ngModel)]="person.tip" multiple="true" cancelText="İptal" okText="Tamam" required>
+<ion-select [(ngModel)]="person.tip" multiple="true" cancelText="İptal" okText="Tamam" required name="persontip">
   <ion-option value="Tam Zamanlı">Tam Zamanlı</ion-option>
   <ion-option value="Proje Bazlı">Proje Bazlı</ion-option>
   <ion-option value="Stajyer">Stajyer</ion-option>
@@ -121,32 +136,44 @@ Ekle
 
 <ion-item>
     <ion-label floating>Aylık net maaş beklentisi (TL)</ion-label>
-    <ion-input type="number" [(ngModel)]="person.maas" min="0" required></ion-input>
+    <ion-input type="number" [(ngModel)]="person.maas" min="0" required name="personmaas"></ion-input>
 </ion-item>
 
-<ion-item-divider color="light">Çalışılacak Lokasyon:</ion-item-divider>
+<ion-item-divider color="light">
+<ion-badge>
+  Çalışılacak Lokasyon
+</ion-badge>
+</ion-item-divider>
 <ion-item>
 <ion-label floating>Şehir</ion-label>
-<ion-select  [(ngModel)]="person.sehir" multiple="true" interface="popover" cancelText="İptal" okText="Tamam">
+<ion-select  [(ngModel)]="person.sehir" multiple="true" interface="popover" required cancelText="İptal" okText="Tamam" name="personsehir">
   <ion-option *ngFor="let item of sehirler" value='{{item}}'>{{item}}</ion-option>
 </ion-select>
 </ion-item>
 
-<ion-item-divider color="light">İletişim Bilgileri:</ion-item-divider>
+<ion-item-divider color="light">
+  <ion-badge>
+  İletişim Bilgileri
+</ion-badge>
+</ion-item-divider>
 <ion-item>
   <ion-label floating>Email</ion-label>
-  <ion-input type="text" [(ngModel)]="person.emailAddress" required></ion-input>
+  <ion-input type="text" [(ngModel)]="person.emailAddress" required name="personemail"></ion-input>
 </ion-item>
 <ion-item>
-  <ion-label floating>Telefon</ion-label>
-  <ion-input type="text" [(ngModel)]="person.telefon" ></ion-input>
+  <ion-label floating>Telefon (isteğe bağlı)</ion-label>
+  <ion-input type="text" [(ngModel)]="person.telefon" name="persontelefon"></ion-input>
 </ion-item>
-
+<ion-item>
+  <ion-label floating>GitHub linki (isteğe bağlı)</ion-label>
+  <ion-input type="url" [(ngModel)]="person.github" name="github"></ion-input>
+</ion-item>
 <p>
 </p>
-<button ion-button block icon-left [disabled]="" (click)="save()">
+<button ion-button block icon-left [disabled]="!tercihForm.form.valid" (click)="presentSave()" color="secondary">
   <ion-icon name="create"></ion-icon>
   Güncelle
 </button>
+</form>
 
 </ion-content>

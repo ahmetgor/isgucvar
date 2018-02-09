@@ -4,6 +4,18 @@
 
 <ion-content>
 
+  <ion-fab bottom right small>
+  <button ion-fab small>
+  <ion-icon name="notifications"></ion-icon>
+  </button>
+</ion-fab>
+
+  <div *ngIf="isEmpty" color="light">
+    <p text-center color="light">
+      Aradığınız kriterlere uygun profil bulunamadı.
+    </p>
+  </div>
+
   <ion-card *ngFor="let gozat of gozatList">
 
   <ion-item>
@@ -31,7 +43,7 @@
   </ion-card-content>
 
   <ion-item>
-  <ion-row margin-horizontal>
+  <ion-row>
     <ion-col>
       <p>
       <ion-icon name="pin" color="primary"></ion-icon>
@@ -69,21 +81,26 @@
       </button>
     </ion-col>
 
-    <ion-col  center text-center>
-      <button ion-button icon-only clear large color='secondary' (click)="like(gozat.id)">
-        <ion-icon name="thumbs-up"></ion-icon>
-        <!-- <div>Beğen</div> -->
-      </button>
-    </ion-col>
-
     <ion-col center text-center>
       <button ion-button icon-only large clear (click)="goLinked(gozat.siteStandardProfileRequest.url)">
       <ion-icon name="logo-linkedin" large color="blue"></ion-icon>
     </button>
     </ion-col>
 
+    <ion-col  center text-center>
+      <button ion-button icon-only clear large color='secondary' (click)="like(gozat.id)">
+        <ion-icon name="thumbs-up"></ion-icon>
+        <!-- <div>Beğen</div> -->
+      </button>
+    </ion-col>
   </ion-row>
 
 </ion-card>
+
+<ion-infinite-scroll *ngIf="scrollEnable" (ionInfinite)="doInfinite($event)">
+<ion-infinite-scroll-content
+loadingText="Sonuçlar yükleniyor...">
+</ion-infinite-scroll-content>
+</ion-infinite-scroll>
 
 </ion-content>

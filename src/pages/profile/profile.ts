@@ -37,6 +37,21 @@ export class ProfilePage {
     })
   }
 
+  goLink(link: string) {
+    console.log(link);
+    if(link && link.trim() != "")
+    var myWindow = window.open(link, '_system');
+    // window.location.href = "mailto:destek.isgucvarisveren@isgucvar.com";
+    // myWindow.close();
+  }
+
+  // goLinked(link: string) {
+  //   console.log(link);
+  //   var myWindow = window.open(link, '_system');
+  //   // window.location.href = "mailto:destek.isgucvarisveren@isgucvar.com";
+  //   // myWindow.close();
+  // }
+
   goSettings() {
     this.navCtrl.push(SettingsPage, {
     })

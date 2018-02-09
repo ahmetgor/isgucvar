@@ -10,6 +10,7 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { LoginPage } from '../pages/login/login';
 import { ProfilePage } from '../pages/profile/profile';
 import { SettingsPage } from '../pages/settings/settings';
+import { MesajPage } from '../pages/mesaj/mesaj';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -27,7 +28,8 @@ import { HttpModule } from '@angular/http';
     TabsPage,
     LoginPage,
     SettingsPage,
-    ProfilePage
+    ProfilePage,
+    MesajPage
   ],
   imports: [
     BrowserModule,
@@ -44,7 +46,8 @@ import { HttpModule } from '@angular/http';
     TabsPage,
     LoginPage,
     SettingsPage,
-    ProfilePage
+    ProfilePage,
+    MesajPage
   ],
   providers: [
     StatusBar,
