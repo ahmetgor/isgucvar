@@ -19,6 +19,7 @@ import { PersonProvider } from '../providers/person';
 import {HttpClientModule} from '@angular/common/http';
 import { HttpModule } from '@angular/http';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
+import { LinkedIn  } from '@ionic-native/linkedin';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,8 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthProvider,
     PersonProvider,
-    InAppBrowser
+    InAppBrowser,
+    LinkedIn
   ]
 })
 export class AppModule {}

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 // import { AuthProvider } from '../../providers/auth';
 import { PersonProvider } from '../../providers/person';
+import { AuthProvider } from '../../providers/auth';
 import { TabsPage } from '../tabs/tabs';
 import { GozatPage } from '../gozat/gozat';
 
@@ -14,7 +15,8 @@ declare var IN;
 })
 export class LoginPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public personSer: PersonProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public personSer: PersonProvider,
+              public authSer: AuthProvider) {
   }
 
   ionViewDidLoad() {
@@ -45,11 +47,18 @@ console.log('getProfileData1');
 }
 
 doLogin() {
-IN.User.authorize(
-  () => {console.log('asd1');
-          this.getProfileData();
-        }
-  , () => console.log('qwe1'));
+
+  this.authSer.login()
+  .then((res) => {
+    console.log(res);
+        }, (err) => {
+
+  });
+// IN.User.authorize(
+//   () => {console.log('asd1');
+//           this.getProfileData();
+//         }
+//   , () => console.log('qwe1'));
 }
 
 // doAuth() {
