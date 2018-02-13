@@ -12,8 +12,8 @@ import {LoadingController} from 'ionic-angular';
 export class AuthProvider {
 
   loading: any;
-  url: string = 'http://127.0.0.1:8080/api/auth/';
-  // url : string = 'https://isgucvarserver.herokuapp.com/api/auth/'
+  // url: string = 'http://127.0.0.1:8080/api/auth/';
+  url : string = 'https://isgucvarserver.herokuapp.com/api/auth/'
 
   constructor(public http: HttpClient, public loadingCtrl: LoadingController) {
     console.log('Hello AuthProvider Provider');
