@@ -48,17 +48,17 @@ console.log('getProfileData1');
 
 doLogin() {
 
-  this.authSer.login()
-  .then((res) => {
-    console.log(res);
-        }, (err) => {
-
-  });
-// IN.User.authorize(
-//   () => {console.log('asd1');
-//           this.getProfileData();
-//         }
-//   , () => console.log('qwe1'));
+  // this.authSer.login()
+  // .then((res) => {
+  //   console.log(res);
+  //       }, (err) => {
+  //
+  // });
+IN.User.authorize(
+  () => {console.log('asd1');
+          this.getProfileData();
+        }
+  , () => console.log('qwe1'));
 }
 
 // doAuth() {

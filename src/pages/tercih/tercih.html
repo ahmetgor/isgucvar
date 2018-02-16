@@ -10,7 +10,7 @@
 
     <ion-item-divider color="light">
       <ion-badge>
-      Uzmanlık Bilgileri:
+      Uzmanlık Bilgileri
     </ion-badge>
       <ion-icon item-end color="primary" name="information-circle" (click)="infoPressed()"></ion-icon>
     </ion-item-divider>
@@ -56,7 +56,7 @@
   </ion-col>
 <ion-col col-auto>
   <button ion-button small clear icon-only (click)="removeUzm(uzmanitem.id)">
-<ion-icon name="remove-circle"></ion-icon>
+<ion-icon name="close" color="danger"></ion-icon>
 </button>
 </ion-col>
 </ion-row>
@@ -65,13 +65,13 @@
 
 <ion-item-divider color="light">
 <ion-badge>
-  Bilgi ve Tecrübeler:
+  Mesleki Bilgi ve Tecrübeler
 </ion-badge>
 </ion-item-divider>
 
 <ion-list>
 <ion-item>
-<ion-label floating>Bilgi & Beceri Seçin</ion-label>
+<ion-label floating>Mesleki Bilgi Seçin</ion-label>
 <ion-input type="text" [(ngModel)]="tagid"  [formControl]="searchControl" clearInput="true" name="tagid">
 </ion-input>
 </ion-item>
@@ -112,7 +112,7 @@ Ekle
   </ion-col>
 <ion-col col-auto>
   <button ion-button small clear icon-only (click)="removeTag(tagitem.id)">
-<ion-icon name="remove-circle"></ion-icon>
+<ion-icon name="close" color="danger"></ion-icon>
 </button>
 </ion-col>
 </ion-row>

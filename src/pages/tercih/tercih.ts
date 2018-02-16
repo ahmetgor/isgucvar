@@ -10,17 +10,19 @@ import 'rxjs/add/operator/debounceTime';
   templateUrl: 'tercih.html'
 })
 export class TercihPage {
-cat: any =  [{"id":"Software Engineering", "subcat": ["AR/VR", "Backend", "Blockchain", "Computer Vision", "Embedded", "Manager", "Frontend",
-    "Full Stack", "Gaming", "Hardware", "Mobile", "NLP", "Search", "Security"]},
-    {"id":"Design", "subcat": ["Brand/Graphic Designer", "Product Designer", "UX Designer", "UX Researcher", "Visual/UI Designer"]},
-    {"id":"Data Analytics", "subcat": ["Business Analyst", "Business Operations", "Data Analyst", "Data Scientist", "Machine Learning"]},
-    {"id":"DevOps", "subcat": ["DevOps", "Build/Release", "Site Reliability Engineer (SRE)"]},
-    {"id":"Quality Assurance (QA)", "subcat": ["QA Manual Test", "QA Test Automation"]},
-    {"id":"Information Technology", "subcat": ["Business Systems", "Database Administrator", "Desktop Support", "Network Administrator",
+cat: any =  [{"id":"Software Engineering", "cat": "it", "subcat": ["Backend", "Computer Vision", "Embedded", "Manager", "Frontend",
+    "Full Stack", "Gaming", "Hardware", "Mobile", "Search", "Security", "DevOps", "Build/Release", "Site Reliability Engineer (SRE)",
+    "QA Manual Test", "QA Test Automation"]},
+    {"id":"Design (IT)", "cat": "it", "subcat": ["Brand/Graphic Designer", "Product Designer", "UX Designer", "UX Researcher", "Visual/UI Designer"]},
+    {"id":"Data Analytics", "cat": "it", "subcat": ["Business Intelligence", "Business Analyst", "Business Operations", "Data Analyst", "Data Scientist", "Machine Learning"]},
+    {"id":"Information Technology", "cat": "it", "subcat": ["Business Systems", "Database Administrator", "Desktop Support", "Network Administrator",
     "Network", "NOC", "SAP Developer", "Solutions Architect", "Solutions", "Systems Administrator"]},
-    {"id":"Project Management", "subcat": ["IT Project Manager", "Program Manager", "Project Manager"]},
-    {"id":"Product Management", "subcat": ["Product Management"]
-  }];
+    {"id":"Project Management", "cat": "pm", "subcat": ["IT Project Manager", "Program Manager", "Project Manager", "Product Manager", "Scrum Master", "Product Owner"]},
+    {"id":"Engineering", "cat": "en", "subcat": ["Mechanical Engineering", "Electrical Engineering", "Structural Engineering", "Civil Engineering", "Control Engineering",
+     "Automotive Engineering, Chemical Engineering, Aerospace Engineering, Manufacturing Engineering, Geotechnical Engineering, Telecommunication Engineering"]},
+     {"id":"Law", "cat": "law", "subcat": ["Criminal Law", "Contract Law", "Constitutional Law", "Tax Law", "Civil Law", "Corporate Law", "Common Law", "Family Law","Labor Law"]},
+     {"id":"Finance", "cat": "fin", "subcat": ["Accounting", "Auditor", "Banking / Loans", "Bookkeeping", "Finance Management", "Financial Analyst"]}
+  ];
 
 searchControl: FormControl;
 person: any;
@@ -33,6 +35,7 @@ showTagEkle: boolean = false;
 // searching: any = false;
 subcatList: Array<string> = [];
 sehirler: Array<string> = [];
+tagcat: string;
 
   constructor(public navCtrl: NavController, public personSer: PersonProvider, public toastCtrl: ToastController,
               public alertCtrl: AlertController) {
@@ -44,12 +47,14 @@ sehirler: Array<string> = [];
   }
 
   ionViewDidLoad() {
+    this.tagcat = this.cat[this.cat.
+      findIndex(obj => obj.subcat.includes(this.person.uzmanlik[this.person.uzmanlik.length-1].id))].cat;
     this.searchControl.valueChanges.debounceTime(300).subscribe(search => {
 
       if(search.length == 0) this.allTags = [];
       else {
       console.log(search+"search");
-      this.personSer.getTags(this.tagid)
+      this.personSer.getTags(this.tagid, this.tagcat)
       .then((res) => {
         // this.searching = false;
         this.allTags = res;
@@ -65,13 +70,20 @@ sehirler: Array<string> = [];
   }
 
   addUzm() {
-    if(this.person.uzmanlik.length<3) this.person.uzmanlik.push({"id": this.subcatid, "yil":1});
+    if(this.person.uzmanlik.length<3) {
+      this.person.uzmanlik.push({"id": this.subcatid, "yil":1});
+      this.tagcat = this.cat[this.cat.
+        findIndex(obj => obj.subcat.includes(this.person.uzmanlik[this.person.uzmanlik.length-1].id))].cat;
+    }
     else this.presentToast("En fazla 3 adet seçilebilir.");
   }
 
   removeUzm(value: string) {
-    if(this.person.uzmanlik.length>1)
+    if(this.person.uzmanlik.length>1) {
     this.person.uzmanlik = this.person.uzmanlik.filter(item => item.id !== value);
+    this.tagcat = this.cat[this.cat.
+      findIndex(obj => obj.subcat.includes(this.person.uzmanlik[this.person.uzmanlik.length-1].id))].cat;
+    }
     else this.presentToast("En az 1 adet olmalıdır.");
   }
 

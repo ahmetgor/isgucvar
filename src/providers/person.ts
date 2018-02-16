@@ -14,8 +14,8 @@ import {LoadingController, ToastController} from 'ionic-angular';
 @Injectable()
 export class PersonProvider {
 
-  // url : string = 'http://127.0.0.1:8080/api/persons/';
-  url : string = 'https://isgucvarserver.herokuapp.com/api/persons/'
+  url : string = 'http://127.0.0.1:8080/api/persons/';
+  // url : string = 'https://isgucvarserver.herokuapp.com/api/persons/'
 
   loading: any;
   person: any;
@@ -75,13 +75,13 @@ export class PersonProvider {
     });
   }
 
-  getTags(searchTerm: string){
+  getTags(searchTerm: string, cat: string){
     let headers = new HttpHeaders();
       // headers.append('Authorization', this.authService.token);
       headers.append('Content-Type', 'application/json');
       console.log(searchTerm+"hebe");
       return new Promise((resolve, reject) => {
-      this.http.get(this.url+'tags/' + `?tag=${searchTerm}`, {headers: headers})
+      this.http.get(this.url+'tags/' + `?tag=${searchTerm}&cat=${cat}`, {headers: headers})
         .subscribe(data => {
           resolve(data);
         }, (err) => {

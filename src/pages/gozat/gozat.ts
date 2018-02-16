@@ -1,10 +1,28 @@
-import { Component } from '@angular/core';
+import { Component, trigger, state, style, transition, animate, keyframes } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { PersonProvider } from '../../providers/person';
 
+
 @Component({
   selector: 'page-gozat',
-  templateUrl: 'gozat.html'
+  templateUrl: 'gozat.html',
+  animations: [
+
+  trigger('flyInOut', [
+    state('in', style({
+      transform: 'translate3d(0, 0, 0)'
+    })),
+    state('out', style({
+      transform: 'translate3d(150%, 0, 0)'
+    })),
+    state('out1', style({
+      transform: 'translate3d(-150%, 0, 0)'
+    })),
+    transition('* => out', animate('300ms ease-in')),
+    transition('* => out1', animate('300ms ease-out')),
+    transition('* => in', animate('200ms ease-out'))
+  ])
+]
 })
 export class GozatPage {
 
@@ -13,6 +31,7 @@ export class GozatPage {
   slice: number = 0;
   scrollEnable: boolean = true;
   isEmpty: boolean;
+  // flyInOutState: String = 'in';
 
   constructor(public navCtrl: NavController, public personSer: PersonProvider) {
     // this.gozatList.push(this.personSer.person);
@@ -42,14 +61,28 @@ export class GozatPage {
           });
   }
 
-  like(value: string) {
-    this.person.like.push(value);
-    this.gozatList = this.gozatList.filter(item => item.id !== value);
+  like(gozatItem: any) {
+    console.log("hebe");
+    gozatItem.state = 'out';
+
+  setTimeout(() => {
+    console.log("heb");
+  this.person.like.push(gozatItem.id);
+  this.gozatList = this.gozatList.filter(item => item.id !== gozatItem.id);
+    gozatItem.state = 'in';
+  }, 400);
+
   }
 
-  dislike(value: string) {
-    this.person.dislike.push(value);
-    this.gozatList = this.gozatList.filter(item => item.id !== value);
+  dislike(gozatItem: any) {
+    gozatItem.state = 'out1';
+
+  setTimeout(() => {
+    console.log("heb1");
+    this.person.dislike.push(gozatItem.id);
+    this.gozatList = this.gozatList.filter(item => item.id !== gozatItem.id);
+    gozatItem.state = 'in';
+  }, 400);
   }
 
   doInfinite(infiniteScroll) {

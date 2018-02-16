@@ -16,9 +16,9 @@
     </p>
   </div>
 
-  <ion-card *ngFor="let gozat of gozatList">
-
-  <ion-item>
+  <ion-card [@flyInOut]="gozat.state" *ngFor="let gozat of gozatList">
+  <div   >
+      <ion-item>
     <ion-thumbnail item-start>
       <img class="img-circle" [src]=gozat.pictureUrls.values[0]>
     </ion-thumbnail>
@@ -75,7 +75,7 @@
 
   <ion-row>
     <ion-col center text-center>
-      <button ion-button icon-only clear large color='danger' (click)="dislike(gozat.id)">
+      <button ion-button icon-only clear large color='danger' (click)="dislike(gozat)">
         <ion-icon name="thumbs-down"></ion-icon>
         <!-- <div>Beğenme</div> -->
       </button>
@@ -88,12 +88,13 @@
     </ion-col>
 
     <ion-col  center text-center>
-      <button ion-button icon-only clear large color='secondary' (click)="like(gozat.id)">
+      <button ion-button icon-only clear large color='secondary' (click)="like(gozat)">
         <ion-icon name="thumbs-up"></ion-icon>
         <!-- <div>Beğen</div> -->
       </button>
     </ion-col>
   </ion-row>
+</div>
 
 </ion-card>
 
