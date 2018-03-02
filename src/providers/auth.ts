@@ -3,6 +3,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { LoginPage } from '../pages/login/login';
 import {LoadingController} from 'ionic-angular';
+import { Storage } from '@ionic/storage';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
 // import { LinkedIn, LinkedInLoginScopes } from '@ionic-native/linkedin';
 
 // import 'rxjs/add/operator/map';
@@ -14,12 +16,17 @@ export class AuthProvider {
   loading: any;
   url: string = 'http://127.0.0.1:8080/api/auth/';
   // url : string = 'https://isgucvarserver.herokuapp.com/api/auth/'
-  accessToken: string = 'AQVWMxkd3kzYLGwIOGaeaPCXig9hdCF2JFxNAJfoYaXEECmI1iIRsltRveUoR7-qk-nxnuRDqjdPEEmApDDzMsvylSCmFl9-30lwAvJeGT6DvH40OIGg-TpL-if9d_ANwSjqM7wuJR7JcgYQ8ELjd832UWimD_iWCTVRVnASP2YFE4YCrAp5vgtzQHHAkK5G8TLsJnasZG9YwrNXFVk-Xrz4T6I6nOtVXaQ6X_lis5_ejTyusFi5tD_Q3vlRIAZmo5xN_Soo_s2goavnXDZwYlczU7o5d1BsHyuxowuAyL2kg3Gi9Hhqa4nmc_4BKyojTbAvskmjfXiby2HSaGVA-ks4fi9wlw';
+  accessToken: string;
+  redirectURI: any = "http://localhost:8080/api/auth/callback&state=252890252890&scope=r_basicprofile";
   linkedUrl: string = "https://api.linkedin.com/v1/people/~:(id,formatted-name,location,industry,summary,specialties"+
     ",positions,picture-urls::(original),site-standard-profile-request,email-address)?format=json";
 
-  constructor(public http: HttpClient, public loadingCtrl: LoadingController) {
+  constructor(public http: HttpClient, public loadingCtrl: LoadingController, storage: Storage,
+              private iab: InAppBrowser) {
     console.log('Hello AuthProvider Provider');
+    storage.get('accessToken').then((val) => {
+    this.accessToken = val;
+});
   }
 
   getLinkedPerson() {
@@ -64,27 +71,36 @@ export class AuthProvider {
     });
   }
 
-login(){
+  public linkedLogin() {
+    return new Promise((resolve, reject) => {
+      console.log("linkedlogin servis");
+  let browser = this.iab.create("https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=" + "86p3aqpfdryb6f" + "&redirect_uri=" + this.redirectURI+ "&state=252890252890&scope=r_basicprofile");
+  let listener = browser.on('loadstart').subscribe((event: any) => {
 
-return new Promise((resolve, reject) => {
-  // this.showLoader();
-    let headers = new HttpHeaders();
-    headers.append('Content-Type', 'application/json');
-    // let uri = encodeURI('https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=86p3aqpfdryb6f&redirect_uri=http://localhost:8100&state=252890252890&scope=r_basicprofile');
-    this.http.get(this.url,
-      {headers: headers})
-      .subscribe(res => {
-        let data = JSON.parse(JSON.stringify(res));
-        console.log(JSON.stringify(data)+'user');
-        // this.loading.dismiss();
-        resolve(data);
-        // resolve(res.json());
-      }, (err) => {
-        // this.loading.dismiss();
-        reject(err);
+        console.log(event.url);
+        console.log(JSON.stringify(event)+'url');
+        //Ignore the dropbox authorize screen
+        if(event.url.indexOf('oauth2/authorize') > -1){
+        console.log("ignore screen");
+          return;
+        }
+
+        //Check the redirect uri
+        if(event.url.indexOf("http://localhost:8080/api/auth/callback") > -1 ){
+        console.log("check redirect");
+          listener.unsubscribe();
+          browser.close();
+          let token = event.url.split('=')[1].split('&')[0];
+          this.accessToken = token;
+          resolve(event.url);
+        } else {
+          browser.close();
+          reject("Could not authenticate");
+        }
+
       });
-});
-}
+  });
+  }
 
 // login1() {
 //   let scopes = ['r_basicprofile', 'r_emailaddress'];

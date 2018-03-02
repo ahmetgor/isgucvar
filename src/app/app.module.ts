@@ -22,6 +22,13 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { LinkedIn  } from '@ionic-native/linkedin';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { IonicStorageModule } from '@ionic/storage';
+
+class InAppBrowserMock extends InAppBrowser {
+  open() {
+
+  }
+}
 
 @NgModule({
   declarations: [
@@ -40,7 +47,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     HttpClientModule,
     HttpModule,
     IonicModule.forRoot(MyApp),
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
