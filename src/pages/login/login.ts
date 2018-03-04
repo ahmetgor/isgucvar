@@ -8,6 +8,7 @@ import { GozatPage } from '../gozat/gozat';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { Storage } from '@ionic/storage';
 
 declare var IN: any;
 declare var window: any;
@@ -20,12 +21,10 @@ declare var window: any;
 export class LoginPage {
 
   accessToken: string;
-  redirectURI: any = "http://localhost:8080/api/auth/callback";
-
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public personSer: PersonProvider,
               public authSer: AuthProvider, private platform: Platform, private iab: InAppBrowser,
-              statusBar: StatusBar, splashScreen: SplashScreen) {
+              statusBar: StatusBar, splashScreen: SplashScreen, public storage: Storage) {
   platform.ready().then(() => {
   statusBar.styleDefault();
   splashScreen.hide();
@@ -36,13 +35,28 @@ export class LoginPage {
     console.log('ionViewDidLoad LoginPage');
     // this.doLogin();
     // this.getProfileData();
+    this.storage.get('accessToken').then((val) => {
+      console.log(val+"val");
+      if(val) {
+        this.authSer.accessToken = val;
+        this.getLinkedPerson();
+  }
+});
   }
 
   getLinkedPerson() {
     this.authSer.getLinkedPerson()
     .then((res) => {
-      console.log("getLinkedPerson cevap")
-      console.log(res);
+      console.log(JSON.stringify(res)+"getlinkedperson");
+      this.personSer.updatePerson(res)
+      .then((res) => {
+        console.log(JSON.stringify(res)+"updateperson");
+        this.navCtrl.push(TabsPage, {
+        });
+            }, (err) => {
+              console.log("updateperson err")
+
+            });
 
           }, (err) => {
             console.log("getLinkedPerson err")
@@ -113,45 +127,12 @@ public linkedLogin(): Promise<any> {
     });
 }
 
-public linkedLogin1() {
-  return new Promise((resolve, reject) => {
-    console.log("linkedlogin servis");
-let browser = this.iab.create("https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=" + "86p3aqpfdryb6f" + "&redirect_uri=" + this.redirectURI+ "&state=252890252890&scope=r_basicprofile");
-let listener = browser.on('loadstart').subscribe((event: any) => {
-  // listener.unsubscribe();
-  // browser.close();
-
-      console.log(event.url);
-      console.log(JSON.stringify(event)+'url');
-      //Ignore the dropbox authorize screen
-      if(event.url.indexOf('v2/authorization') > -1){
-      console.log("ignore screen");
-      return;
-      }
-
-      //Check the redirect uri
-      if(event.url.indexOf("http://localhost:8080/api/auth/callbacka") == 0 ){
-      console.log("check redirect");
-        listener.unsubscribe();
-        browser.close();
-        let token = event.url.split('=')[1].split('&')[0];
-        console.log(this.accessToken+"accessToken");
-        this.accessToken = token;
-        resolve(event.url);
-      } else {
-        reject("Could not authenticate");
-      }
-    });
-});
-
-}
-
 doLogin() {
 
     // this.platform.ready().then(() => {
-        this.linkedLogin1().then((success) => {
-        console.log(success+"success");
-        // this.navCtrl.setRoot(TabsPage);
+        this.authSer.linkedLogin().then((success) => {
+        console.log(JSON.stringify(success)+"success");
+        this.getLinkedPerson();
         }, (error) => {
           console.log(error+"error");
         });

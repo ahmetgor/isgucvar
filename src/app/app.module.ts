@@ -19,7 +19,7 @@ import { PersonProvider } from '../providers/person';
 import {HttpClientModule} from '@angular/common/http';
 import { HttpModule } from '@angular/http';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
-import { LinkedIn  } from '@ionic-native/linkedin';
+// import { LinkedIn  } from '@ionic-native/linkedin';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { IonicStorageModule } from '@ionic/storage';
@@ -68,8 +68,8 @@ class InAppBrowserMock extends InAppBrowser {
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthProvider,
     PersonProvider,
-    InAppBrowser,
-    LinkedIn
+    InAppBrowser
+    // LinkedIn
   ]
 })
 export class AppModule {}

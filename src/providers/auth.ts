@@ -17,21 +17,19 @@ export class AuthProvider {
   url: string = 'http://127.0.0.1:8080/api/auth/';
   // url : string = 'https://isgucvarserver.herokuapp.com/api/auth/'
   accessToken: string;
-  redirectURI: any = "http://localhost:8080/api/auth/callback&state=252890252890&scope=r_basicprofile";
+  redirectURI: any = "http://localhost:8080/api/auth/callback";
   linkedUrl: string = "https://api.linkedin.com/v1/people/~:(id,formatted-name,location,industry,summary,specialties"+
     ",positions,picture-urls::(original),site-standard-profile-request,email-address)?format=json";
 
-  constructor(public http: HttpClient, public loadingCtrl: LoadingController, storage: Storage,
+  constructor(public http: HttpClient, public loadingCtrl: LoadingController, public storage: Storage,
               private iab: InAppBrowser) {
     console.log('Hello AuthProvider Provider');
-    storage.get('accessToken').then((val) => {
-    this.accessToken = val;
-});
+
   }
 
   getLinkedPerson() {
     return new Promise((resolve, reject) => {
-      // this.showLoader();
+      this.showLoader();
         let headers = new HttpHeaders();
         headers.append('Content-Type', 'application/json');
         // headers.append('Authorization', this.accessToken);
@@ -40,11 +38,11 @@ export class AuthProvider {
           .subscribe(res => {
             let data = JSON.parse(JSON.stringify(res));
             console.log(JSON.stringify(data)+'data');
-            // this.loading.dismiss();
+            this.loading.dismiss();
             resolve(data);
             // resolve(res.json());
           }, (err) => {
-            // this.loading.dismiss();
+            this.loading.dismiss();
             console.log(JSON.stringify(err)+"err");
             reject(err);
           });
@@ -57,11 +55,13 @@ export class AuthProvider {
         let headers = new HttpHeaders();
         headers.append('Content-Type', 'application/json');
         // let uri = encodeURI('https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=86p3aqpfdryb6f&redirect_uri=http://localhost:8100&state=252890252890&scope=r_basicprofile');
-        this.http.get(url, {headers: headers})
+        this.http.get(url+`&app=${"app"}`, {headers: headers})
           .subscribe(res => {
             let data = JSON.parse(JSON.stringify(res));
             console.log(JSON.stringify(data)+'data');
             // this.loading.dismiss();
+            this.accessToken = data.access_token;
+            this.storage.set("accessToken", this.accessToken);
             resolve(data);
             // resolve(res.json());
           }, (err) => {
@@ -76,30 +76,36 @@ export class AuthProvider {
       console.log("linkedlogin servis");
   let browser = this.iab.create("https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=" + "86p3aqpfdryb6f" + "&redirect_uri=" + this.redirectURI+ "&state=252890252890&scope=r_basicprofile");
   let listener = browser.on('loadstart').subscribe((event: any) => {
+    // listener.unsubscribe();
+    // browser.close();
 
         console.log(event.url);
         console.log(JSON.stringify(event)+'url');
         //Ignore the dropbox authorize screen
-        if(event.url.indexOf('oauth2/authorize') > -1){
+        if(event.url.indexOf('www.linkedin.com') > -1){
         console.log("ignore screen");
-          return;
+        return;
         }
 
         //Check the redirect uri
-        if(event.url.indexOf("http://localhost:8080/api/auth/callback") > -1 ){
+        if(event.url.indexOf('callback?code') > -1 ){
         console.log("check redirect");
           listener.unsubscribe();
           browser.close();
-          let token = event.url.split('=')[1].split('&')[0];
-          this.accessToken = token;
-          resolve(event.url);
-        } else {
-          browser.close();
+          this.doAuth(event.url)
+          .then((res) => {
+            console.log(res);
+            resolve(res);
+          }, (err) => {
+            reject("Could not authenticat,");
+          });
+        }
+        else {
           reject("Could not authenticate");
         }
-
       });
   });
+
   }
 
 // login1() {

@@ -1,4 +1,11 @@
-import { Component, trigger, state, style, transition, animate, keyframes } from '@angular/core';
+import { Component } from '@angular/core';
+import {
+  trigger,
+  state,
+  style,
+  animate,
+  transition
+} from '@angular/animations';
 import { NavController } from 'ionic-angular';
 import { PersonProvider } from '../../providers/person';
 
@@ -56,7 +63,7 @@ export class GozatPage {
   ionViewWillLeave() {
     this.personSer.updateTercih(this.person)
     .then((res) => {
-      console.log(JSON.stringify(res)+" yeniperson");
+      // console.log(JSON.stringify(res)+" yeniperson");
           }, (err) => {
           });
   }

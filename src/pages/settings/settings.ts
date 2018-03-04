@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, App } from 'ionic-angular';
 import { PersonProvider } from '../../providers/person';
+import { AuthProvider } from '../../providers/auth';
 import { LoginPage } from '../login/login';
+import { Storage } from '@ionic/storage';
 
  declare var IN;
 
@@ -15,7 +17,7 @@ export class SettingsPage {
   person: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public personSer: PersonProvider,
-              public app: App) {
+              public app: App, public authSer: AuthProvider, public storage: Storage) {
   }
 
   ionViewDidEnter() {
@@ -30,11 +32,13 @@ export class SettingsPage {
   }
 
   doLogout(){
-    IN.User.logout(() => {  console.log('logged out');
-    this.app.getRootNav().setRoot(LoginPage);
+    // IN.User.logout(() => {  console.log('logged out');
     this.person = {};
     this.personSer.person = {};
-  });
+    this.authSer.accessToken = undefined;
+    this.storage.set("accessToken", undefined);
+    this.app.getRootNav().setRoot(LoginPage);
+  // });
   }
 
 }

@@ -27,7 +27,7 @@ export class PersonProvider {
   }
 
   updatePerson(kayit: any){
-    this.showLoader();
+    // this.showLoader();
     return new Promise((resolve, reject) => {
 
       let headers = new HttpHeaders();
@@ -42,12 +42,12 @@ export class PersonProvider {
           if(!this.person.tags) this.person.tags = [];
           if(!this.person.like) this.person.like = [];
           if(!this.person.dislike) this.person.dislike = [];
-          this.loading.dismiss();
+          // this.loading.dismiss();
           console.log(res);
           resolve(res);
         }, (err) => {
           //console.log(JSON.stringify(err)+"avatarerr");
-          this.loading.dismiss();
+          // this.loading.dismiss();
           // this.presentToast('Özgeçmiş güncellenemedi. Bağlantı problemi olabilir. Lütfen tekrar deneyin!');
         });
     });
@@ -62,7 +62,7 @@ export class PersonProvider {
       // headers.append('Authorization', this.authService.token);
       this.http.put(this.url + 'tercih/', kayit, {headers: headers})
         .subscribe(res => {
-          //console.log(JSON.stringify(res)+"avatarres");
+          console.log(JSON.stringify(res)+"updateTercih");
           this.person = res;
           // this.loading.dismiss();
           console.log(res);
