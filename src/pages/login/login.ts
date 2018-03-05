@@ -6,8 +6,8 @@ import { AuthProvider } from '../../providers/auth';
 import { TabsPage } from '../tabs/tabs';
 import { GozatPage } from '../gozat/gozat';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
-import { StatusBar } from '@ionic-native/status-bar';
-import { SplashScreen } from '@ionic-native/splash-screen';
+// import { StatusBar } from '@ionic-native/status-bar';
+// import { SplashScreen } from '@ionic-native/splash-screen';
 import { Storage } from '@ionic/storage';
 
 declare var IN: any;
@@ -24,11 +24,8 @@ export class LoginPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public personSer: PersonProvider,
               public authSer: AuthProvider, private platform: Platform, private iab: InAppBrowser,
-              statusBar: StatusBar, splashScreen: SplashScreen, public storage: Storage) {
-  platform.ready().then(() => {
-  statusBar.styleDefault();
-  splashScreen.hide();
-});
+              public storage: Storage) {
+
 }
 
   ionViewDidLoad() {
@@ -82,49 +79,6 @@ getProfileData() {
 .error((error) =>console.log(error+"hebe"));
 console.log('getProfileData1');
 
-}
-
-public linkedLogin(): Promise<any> {
-    return new Promise((resolve, reject) => {
-      var browserRef = window.cordova.InAppBrowser.open("https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=" + "86p3aqpfdryb6f" + "&redirect_uri=http://localhost:8080/api/auth/callback&state=252890252890&scope=r_basicprofile", "_blank");
-        // var browserRef = window.cordova.InAppBrowser.open("https://www.facebook.com/v2.0/dialog/oauth?client_id=" + "CLIENT_ID_HERE" + "&redirect_uri=http://localhost/callback&response_type=token&scope=email", "_blank", "location=no,clearsessioncache=yes,clearcache=yes");
-        browserRef.addEventListener("loadstart", (event) => {
-        console.log(JSON.stringify(event)+"event");
-        console.log(event.url+"url");
-
-            if ((event.url).indexOf("http://localhost:8080/api/auth/callback") === 0) {
-
-              // this.authSer.doAuth(event.url)
-              // .then((res) => {
-              //   console.log(res);
-              // }, (err) => {
-              //
-              // });
-
-                // browserRef.removeEventListener("exit", (event) => {});
-                // browserRef.close();
-                resolve(event.url);
-                //
-                // var responseParameters = ((event.url).split("#")[1]).split("&");
-                // console.log(responseParameters+"response");
-                //
-                // var parsedResponse = {};
-                // for (var i = 0; i < responseParameters.length; i++) {
-                //     parsedResponse[responseParameters[i].split("=")[0]] = responseParameters[i].split("=")[1];
-                // }
-                // console.log(JSON.stringify(parsedResponse)+"parsedres");
-                // if (parsedResponse["access_token"] !== undefined && parsedResponse["access_token"] !== null) {
-                //     resolve(parsedResponse);
-                // } else {
-                //     reject("Problem authenticating with Facebook");
-                // }
-            }
-        });
-        browserRef.addEventListener("exit", function(event) {
-          console.log(JSON.stringify(event)+"exitevent")
-            reject("LinkedIn giriş yapılamadı, lütfen tekrar deneyin");
-        });
-    });
 }
 
 doLogin() {
