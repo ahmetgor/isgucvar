@@ -1,11 +1,4 @@
-import { Component } from '@angular/core';
-import {
-  trigger,
-  state,
-  style,
-  animate,
-  transition
-} from '@angular/animations';
+import { Component, trigger,state,style,animate,transition } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { PersonProvider } from '../../providers/person';
 
