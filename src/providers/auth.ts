@@ -37,10 +37,10 @@ export class AuthProvider {
         // let uri = encodeURI('https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=86p3aqpfdryb6f&redirect_uri=http://localhost:8100&state=252890252890&scope=r_basicprofile');
         this.http.get(this.url+"linkedPerson"+`?token=${this.accessToken}`, {headers: headers})
           .subscribe(res => {
-            let data = JSON.parse(JSON.stringify(res));
-            console.log(JSON.stringify(data)+'data');
+            // let data = JSON.parse(JSON.stringify(res));
+            console.log(JSON.stringify(res)+'getLinkedPerson');
             this.loading.dismiss();
-            resolve(data);
+            resolve(res);
             // resolve(res.json());
           }, (err) => {
             this.loading.dismiss();

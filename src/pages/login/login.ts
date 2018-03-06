@@ -63,13 +63,13 @@ export class LoginPage {
 getProfileData() {
   console.log('getProfileData');
    IN.API.Raw("/people/~:(id,formatted-name,location,industry,summary,specialties"+
-     ",positions,picture-urls::(original),site-standard-profile-request,email-address)")
+     ",positions,picture-urls::(original),picture-url,site-standard-profile-request,email-address)")
    .result((data) =>{
-     // console.log(JSON.stringify(data));
+     console.log(JSON.stringify(data)+"öndata_getProfileData");
 
      this.personSer.updatePerson(data)
      .then((res) => {
-       console.log(res);
+       console.log(res+"getProfileData");
        this.navCtrl.push(TabsPage, {
        });
            }, (err) => {
@@ -83,14 +83,12 @@ console.log('getProfileData1');
 
 doLogin() {
 
-    // this.platform.ready().then(() => {
         this.authSer.linkedLogin().then((success) => {
         console.log(JSON.stringify(success)+"success");
         this.getLinkedPerson();
         }, (error) => {
           console.log(error+"error");
         });
-    // });
 
   // this.authSer.login()
   // .then((res) => {

@@ -36,15 +36,15 @@ export class PersonProvider {
       this.http.put(this.url, kayit, {headers: headers})
         // .map(res => res.json())
         .subscribe(res => {
-          //console.log(JSON.stringify(res)+"avatarres");
+          // console.log(JSON.stringify(res)+"updatePerson");
           this.person = res;
           if(!this.person.uzmanlik) this.person.uzmanlik = [];
           if(!this.person.tags) this.person.tags = [];
           if(!this.person.like) this.person.like = [];
           if(!this.person.dislike) this.person.dislike = [];
           // this.loading.dismiss();
-          console.log(res);
-          resolve(res);
+          console.log(JSON.stringify(this.person)+"updatePerson");
+          resolve(this.person);
         }, (err) => {
           //console.log(JSON.stringify(err)+"avatarerr");
           // this.loading.dismiss();
@@ -101,7 +101,7 @@ export class PersonProvider {
       // this.showLoader();
         // headers.append('Authorization', this.authService.token);
         headers.append('Content-Type', 'application/json');
-        console.log(JSON.stringify(params));
+        // console.log(JSON.stringify(params));
         person.slice = slice;
         return new Promise((resolve, reject) => {
         this.http.post(this.url
