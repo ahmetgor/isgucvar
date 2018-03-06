@@ -50,13 +50,14 @@ export class AuthProvider {
     });
   }
 
-  doAuth(url: string) {
+  doAuth(token: string, token2: string) {
     return new Promise((resolve, reject) => {
       // this.showLoader();
         let headers = new HttpHeaders();
         headers.append('Content-Type', 'application/json');
         // let uri = encodeURI('https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=86p3aqpfdryb6f&redirect_uri=http://localhost:8100&state=252890252890&scope=r_basicprofile');
-        this.http.get(url+`&app=${"app"}`, {headers: headers})
+        // this.http.get(url+`&app=${"app"}`, {headers: headers})
+        this.http.get(this.url+ 'login' + `?code=${token}&state=${token2}`, {headers: headers})
           .subscribe(res => {
             let data = JSON.parse(JSON.stringify(res));
             console.log(JSON.stringify(data)+'data');
@@ -75,7 +76,7 @@ export class AuthProvider {
   public linkedLogin() {
     return new Promise((resolve, reject) => {
       console.log("linkedlogin servis");
-  let browser = this.iab.create("https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=" + "86p3aqpfdryb6f" + "&redirect_uri=" + this.redirectURI+ "&state=252890252890&scope=r_basicprofile", "_blank", "location=no,clearsessioncache=no,clearcache=no");
+  let browser = this.iab.create("https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=" + "86p3aqpfdryb6f" + "&redirect_uri=" + this.redirectURI+ "&state=252890252890&scope=r_basicprofile,r_emailaddress", "_blank", "location=no,clearsessioncache=no,clearcache=no");
   let listener = browser.on('loadstart').subscribe((event: any) => {
     // listener.unsubscribe();
     // browser.close();
@@ -91,9 +92,13 @@ export class AuthProvider {
         //Check the redirect uri
         if(event.url.indexOf('callback?code') > -1 ){
         console.log("check redirect");
+        let token = event.url.split('=')[1].split('&')[0];
+        let token2 = event.url.split('=')[2].split('&')[0];
+        console.log(token);
+        console.log(token2);
           listener.unsubscribe();
           browser.close();
-          this.doAuth(event.url)
+          this.doAuth(token, token2)
           .then((res) => {
             console.log(res);
             resolve(res);
