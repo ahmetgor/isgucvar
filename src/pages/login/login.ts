@@ -30,8 +30,8 @@ export class LoginPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
-    // this.doLogin();
-    // this.getProfileData();
+    if(this.platform.is("android") || this.platform.is("ios")) {
+
     this.storage.get('accessToken').then((val) => {
       console.log(val+"val");
       if(val) {
@@ -39,11 +39,21 @@ export class LoginPage {
         this.getLinkedPerson();
   }
 });
+}
+// else{
+//   this.platform.ready().then(() => {
+//
+//   if(IN.User.isAuthorized()){
+//     this.getProfileData();
+// }
+// });
+// }
   }
 
   getLinkedPerson() {
     this.authSer.getLinkedPerson()
     .then((res) => {
+      if(JSON.parse(JSON.stringify(res)).id) {
       console.log(JSON.stringify(res)+"getlinkedperson");
       this.personSer.updatePerson(res)
       .then((res) => {
@@ -54,6 +64,8 @@ export class LoginPage {
               console.log("updateperson err")
 
             });
+          }
+          else this.doLogin();
 
           }, (err) => {
             console.log("getLinkedPerson err")
@@ -83,48 +95,23 @@ console.log('getProfileData1');
 
 doLogin() {
 
-        this.authSer.linkedLogin().then((success) => {
-        console.log(JSON.stringify(success)+"success");
-        this.getLinkedPerson();
-        }, (error) => {
-          console.log(error+"error");
-        });
+if(this.platform.is("android") || this.platform.is("ios")) {
+this.authSer.linkedLogin().then((success) => {
+console.log(JSON.stringify(success)+"success");
+this.getLinkedPerson();
+}, (error) => {
+  console.log(error+"error");
+});
+}
 
-  // this.authSer.login()
-  // .then((res) => {
-  //   console.log(res);
-  //       }, (err) => {
-  // });
+else {
+IN.User.authorize(
+  () => {console.log('asd1');
+          this.getProfileData();
+        }
+  , () => console.log('qwe1'));
 
-  // this.authSer.login1();
-
-// IN.User.authorize(
-//   () => {console.log('asd1');
-//           this.getProfileData();
-//         }
-//   , () => console.log('qwe1'));
-
-// doAuth() {
-//   if(IN.User.isAuthorized()){
-// }
-//   else console.log("gübe");
-//   this.onLinkedInLoad();
-// }
-
-//    onLinkedInLoad() {
-//      console.log('onLinkedInLoad');
-//     IN.Event.on(IN, "auth", this.getProfileData());
-//     console.log('onLinkedInLoad1');
-// }
-
-// Handle the successful return from the API call
-// function onSuccess(data) {
-//     console.log(data);
-// }
-// // Handle an error response from the API call
-// function onError(error) {
-//     console.log(error);
-// }
+}
 }
 
 }

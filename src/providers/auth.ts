@@ -30,7 +30,7 @@ export class AuthProvider {
 
   getLinkedPerson() {
     return new Promise((resolve, reject) => {
-      this.showLoader();
+      this.showLoader("Bilgileriniz alınıyor");
         let headers = new HttpHeaders();
         headers.append('Content-Type', 'application/json');
         // headers.append('Authorization', this.accessToken);
@@ -52,7 +52,7 @@ export class AuthProvider {
 
   doAuth(token: string, token2: string) {
     return new Promise((resolve, reject) => {
-      // this.showLoader();
+      this.showLoader("Giriş yapılıyor");
         let headers = new HttpHeaders();
         headers.append('Content-Type', 'application/json');
         // let uri = encodeURI('https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=86p3aqpfdryb6f&redirect_uri=http://localhost:8100&state=252890252890&scope=r_basicprofile');
@@ -61,13 +61,13 @@ export class AuthProvider {
           .subscribe(res => {
             let data = JSON.parse(JSON.stringify(res));
             console.log(JSON.stringify(data)+'data');
-            // this.loading.dismiss();
+            this.loading.dismiss();
             this.accessToken = data.access_token;
             this.storage.set("accessToken", this.accessToken);
             resolve(data);
             // resolve(res.json());
           }, (err) => {
-            // this.loading.dismiss();
+            this.loading.dismiss();
             reject(err);
           });
     });
@@ -121,10 +121,10 @@ export class AuthProvider {
 //   // .catch(e => console.log('Error logging in', e));
 // }
 
-  showLoader(){
+  showLoader(content: string){
 
       this.loading = this.loadingCtrl.create({
-          content: 'İşlem yapılıyor...'
+          content: content
       });
       this.loading.present();
   }

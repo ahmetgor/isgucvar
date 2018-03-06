@@ -37,6 +37,7 @@ export class SettingsPage {
     this.personSer.person = {};
     this.authSer.accessToken = undefined;
     this.storage.set("accessToken", undefined);
+    this.storage.remove("accessToken");
     this.app.getRootNav().setRoot(LoginPage);
   // });
   }
