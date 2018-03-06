@@ -57,7 +57,7 @@
       "cordova-plugin-ionic-webview": {},
       "cordova-plugin-inappbrowser": {},
       "cordova-plugin-ionic": {
-        "APP_ID": "607812c9",
+        "APP_ID": "f80d8e95",
         "CHANNEL_NAME": "Master",
         "UPDATE_METHOD": "background",
         "WARN_DEBUG": "true",
