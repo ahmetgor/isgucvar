@@ -39,7 +39,7 @@
       </button> -->
 </div>
 
-<div *ngIf="person.uzmanlik && person.uzmanlik.length != 0">
+<div *ngIf="person.uzmanlik && person.uzmanlik?.length != 0">
 <ion-grid>
 <ion-row *ngFor="let uzmanitem of person.uzmanlik">
   <ion-col col-8>
@@ -48,7 +48,7 @@
     <ion-input type="text" [(ngModel)]="uzmanitem.id" readonly [ngModelOptions]="{standalone: true}"></ion-input>
     </ion-item>
   </ion-col>
-  <ion-col col-2>
+  <ion-col col-3>
     <ion-item>
         <ion-label floating>Yıl</ion-label>
         <ion-input type="number" [(ngModel)]="uzmanitem.yil" min="1" max="40" required [ngModelOptions]="{standalone: true}"></ion-input>
@@ -107,7 +107,7 @@ Ekle
 
 
   </ion-col>
-  <ion-col col-2>
+  <ion-col col-3>
     <ion-item>
         <ion-label floating>Yıl</ion-label>
         <ion-input type="number" [(ngModel)]="tagitem.yil" min="1" max="40" required [ngModelOptions]="{standalone: true}"></ion-input>
