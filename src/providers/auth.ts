@@ -18,7 +18,7 @@ export class AuthProvider {
   url : string = 'https://isgucvarserver.herokuapp.com/api/auth/'
   accessToken: string;
   // redirectURI: any = "http://127.0.0.1:8080/api/auth/callback";
-  redirectURI: any = "https://isgucvarserver.herokuapp.com/api/auth/callback";
+  // redirectURI: any = "https://isgucvarserver.herokuapp.com/api/auth/callback";
   linkedUrl: string = "https://api.linkedin.com/v1/people/~:(id,formatted-name,location,industry,summary,specialties"+
     ",positions,picture-urls::(original),site-standard-profile-request,email-address)?format=json";
 
@@ -76,7 +76,7 @@ export class AuthProvider {
   public linkedLogin() {
     return new Promise((resolve, reject) => {
       console.log("linkedlogin servis");
-  let browser = this.iab.create("https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=" + "86p3aqpfdryb6f" + "&redirect_uri=" + this.redirectURI+ "&state=252890252890&scope=r_basicprofile,r_emailaddress", "_blank", "location=no,clearsessioncache=no,clearcache=no");
+  let browser = this.iab.create("https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=" + "86p3aqpfdryb6f" + "&redirect_uri=" + this.url+"callback"+ "&state=252890252890&scope=r_basicprofile,r_emailaddress", "_blank", "location=no,clearsessioncache=no,clearcache=no");
   let listener = browser.on('loadstart').subscribe((event: any) => {
     // listener.unsubscribe();
     // browser.close();

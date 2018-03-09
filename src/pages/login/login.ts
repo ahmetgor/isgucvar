@@ -96,6 +96,7 @@ console.log('getProfileData1');
 doLogin() {
 
 if(this.platform.is("android") || this.platform.is("ios")) {
+  console.log("mobil");
 this.authSer.linkedLogin().then((success) => {
 console.log(JSON.stringify(success)+"success");
 this.getLinkedPerson();
@@ -105,6 +106,7 @@ this.getLinkedPerson();
 }
 
 else {
+  console.log("browser");
 IN.User.authorize(
   () => {console.log('asd1');
           this.getProfileData();

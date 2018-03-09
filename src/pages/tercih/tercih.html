@@ -28,27 +28,27 @@
     <ion-item>
     <ion-label floating>Uzmanlık Seçin</ion-label>
     <ion-select [(ngModel)]="subcatid" interface="popover" cancelText="İptal" okText="Tamam" name="subcatid">
-      <ion-option *ngFor="let subcatitem of subcatList" value="{{subcatitem}}">{{subcatitem}}</ion-option>
+      <ion-option *ngFor="let subcatitem of subcatList" value="{{subcatitem}}" (ionSelect)="addUzm()">{{subcatitem}}</ion-option>
     </ion-select>
     </ion-item>
 
-    <button ion-button icon-start small clear align="center" color="secondary"
+    <!-- <button ion-button icon-start clear align="center" color="secondary"
           style="text-transform: none;"  (click)="addUzm()">
     <ion-icon name="add"></ion-icon>
           Ekle
-      </button>
+      </button> -->
 </div>
 
 <div *ngIf="person.uzmanlik && person.uzmanlik.length != 0">
 <ion-grid>
 <ion-row *ngFor="let uzmanitem of person.uzmanlik">
-  <ion-col col-7>
+  <ion-col col-8>
     <ion-item>
     <ion-label floating>Uzmanlık</ion-label>
     <ion-input type="text" [(ngModel)]="uzmanitem.id" readonly [ngModelOptions]="{standalone: true}"></ion-input>
     </ion-item>
   </ion-col>
-  <ion-col col-auto>
+  <ion-col col-2>
     <ion-item>
         <ion-label floating>Yıl</ion-label>
         <ion-input type="number" [(ngModel)]="uzmanitem.yil" min="1" max="40" required [ngModelOptions]="{standalone: true}"></ion-input>
@@ -65,22 +65,25 @@
 
 <ion-item-divider color="light">
 <ion-badge>
-  Mesleki Bilgi ve Tecrübeler
+  Mesleki Bilgi ve Beceriler
 </ion-badge>
 </ion-item-divider>
 
-<ion-list>
+<!-- <ion-list> -->
 <ion-item>
-<ion-label floating>Mesleki Bilgi Seçin</ion-label>
+<ion-label floating>Mesleki Bilgi & Beceri Seçin</ion-label>
 <ion-input type="text" [(ngModel)]="tagid"  [formControl]="searchControl" clearInput="true" name="tagid">
 </ion-input>
 </ion-item>
 
-<!-- <ion-list> -->
-    <button ion-item *ngFor="let alltagitem of allTags" (click)="setTag(alltagitem.tag)">
+    <!-- <button ion-item *ngFor="let alltagitem of allTags" (click)="setTag(alltagitem.tag)">
         {{alltagitem.tag}}
-    </button>
-  </ion-list>
+    </button> -->
+    <ion-item text-wrap>
+      <ion-chip *ngFor="let alltagitem of allTags" (click)="setTag(alltagitem.tag)">
+        <ion-label>{{alltagitem.tag}}</ion-label>
+        </ion-chip>
+    </ion-item>
 <!-- </ion-list> -->
 
 <!-- <div *ngIf="showTagEkle">
@@ -95,16 +98,16 @@ Ekle
 <ion-grid>
 <ion-row *ngFor="let tagitem of person.tags">
   <ion-col col-7>
-    <ion-list>
+    <!-- <ion-list> -->
     <ion-item>
     <ion-label floating>Bilgi & Beceri</ion-label>
     <ion-input #bilgi type="text" [(ngModel)]="tagitem.id" readonly [ngModelOptions]="{standalone: true}"></ion-input>
     </ion-item>
-  </ion-list>
+  <!-- </ion-list> -->
 
 
   </ion-col>
-  <ion-col col-auto>
+  <ion-col col-2>
     <ion-item>
         <ion-label floating>Yıl</ion-label>
         <ion-input type="number" [(ngModel)]="tagitem.yil" min="1" max="40" required [ngModelOptions]="{standalone: true}"></ion-input>
@@ -170,7 +173,7 @@ Ekle
 </ion-item>
 <p>
 </p>
-<button ion-button block icon-left [disabled]="!tercihForm.form.valid" (click)="presentSave()" color="secondary">
+<button ion-button block icon-start [disabled]="!tercihForm.form.valid" (click)="presentSave()" color="secondary">
   <ion-icon name="create"></ion-icon>
   Güncelle
 </button>

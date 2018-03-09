@@ -72,6 +72,7 @@ tagcat: string;
   addUzm() {
     if(this.person.uzmanlik.length<3) {
       this.person.uzmanlik.push({"id": this.subcatid, "yil":1});
+      this.presentToast("Uzmanlık eklendi.", 1000);
       this.tagcat = this.cat[this.cat.
         findIndex(obj => obj.subcat.includes(this.person.uzmanlik[this.person.uzmanlik.length-1].id))].cat;
     }
@@ -90,8 +91,10 @@ tagcat: string;
   setTag(value: string) {
     console.log(value);
     console.log(this.tagid);
-    if(this.person.tags.length<6)
+    if(this.person.tags.length<6) {
     this.person.tags.push({"id": value, "yil":1});
+    this.presentToast("Mesleki bilgi eklendi.", 1000);
+  }
     else this.presentToast("En fazla 6 adet seçilebilir.");
     console.log(this.person.tags);
     this.tagid = '';
@@ -129,10 +132,10 @@ tagcat: string;
      // this.searching = true;
  }
 
- presentToast(mesaj) {
+ presentToast(mesaj: string, duration: number = 3500) {
  let toast = this.toastCtrl.create({
    message: mesaj,
-   duration: 4000,
+   duration: duration,
    position: 'top',
    showCloseButton: true,
    closeButtonText: 'OK'
