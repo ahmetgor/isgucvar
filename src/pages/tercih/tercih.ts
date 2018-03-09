@@ -35,7 +35,7 @@ showTagEkle: boolean = false;
 // searching: any = false;
 subcatList: Array<string> = [];
 sehirler: Array<string> = [];
-tagcat: string;
+tagcat: string = "it";
 
   constructor(public navCtrl: NavController, public personSer: PersonProvider, public toastCtrl: ToastController,
               public alertCtrl: AlertController) {
@@ -47,8 +47,11 @@ tagcat: string;
   }
 
   ionViewDidLoad() {
+    if(this.person.uzmanlik.length > 0) {
     this.tagcat = this.cat[this.cat.
       findIndex(obj => obj.subcat.includes(this.person.uzmanlik[this.person.uzmanlik.length-1].id))].cat;
+    }
+
     this.searchControl.valueChanges.debounceTime(300).subscribe(search => {
 
       if(search.length == 0) this.allTags = [];
@@ -73,8 +76,11 @@ tagcat: string;
     if(this.person.uzmanlik.length<3) {
       this.person.uzmanlik.push({"id": this.subcatid, "yil":1});
       this.presentToast("Uzmanlık eklendi.", 1000);
+      if(this.person.uzmanlik.length > 0) {
+
       this.tagcat = this.cat[this.cat.
         findIndex(obj => obj.subcat.includes(this.person.uzmanlik[this.person.uzmanlik.length-1].id))].cat;
+      }
     }
     else this.presentToast("En fazla 3 adet seçilebilir.");
   }
@@ -82,8 +88,12 @@ tagcat: string;
   removeUzm(value: string) {
     if(this.person.uzmanlik.length>1) {
     this.person.uzmanlik = this.person.uzmanlik.filter(item => item.id !== value);
+
+    if(this.person.uzmanlik.length > 0) {
+
     this.tagcat = this.cat[this.cat.
       findIndex(obj => obj.subcat.includes(this.person.uzmanlik[this.person.uzmanlik.length-1].id))].cat;
+    }
     }
     else this.presentToast("En az 1 adet olmalıdır.");
   }
