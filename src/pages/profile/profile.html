@@ -62,8 +62,8 @@
 
   <ion-row>
   <ion-col center text-start>
-    <button ion-button clear small icon-left (click)="goLink(person.github)">
-      <ion-icon name="logo-github" icon-left color="primary"></ion-icon>
+    <button ion-button clear small icon-left [style.color]="person.github ? 'purple': 'lightgrey'" (click)="goLink(person.github)">
+      <ion-icon name="logo-github" icon-left></ion-icon>
       Github
     </button>
   </ion-col>

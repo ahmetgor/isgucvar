@@ -1,39 +1,28 @@
-<!--
-  Generated template for the LoginPage page.
 
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <script type="in/Login"></script>
 
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Giriş</ion-title>
+    <ion-title>Hoşgeldiniz</ion-title>
   </ion-navbar>
-  <!-- <script type="in/Login"></script> -->
 
 </ion-header>
 
+<ion-content class="content" padding>
 
-<ion-content padding>
+  <ion-row text-center>
+    <ion-col>
+      <img class="img-circle"  src="assets/imgs/isgucvar_büyük.png" />
+    </ion-col>
+  </ion-row>
 
-  <!-- <button ion-button icon-start (click)="doAuth()">
-    <ion-icon name="logo-linkedin"></ion-icon>
-    Left Icon
-  </button> -->
-  <!-- <button ion-button icon-start (click)="doLogout()">
-    <ion-icon name="logo-facebook"></ion-icon>
-    Left Icon
-  </button> -->
-  <button ion-button icon-start style="text-transform: none;" (click)="doLogin()" color="blue">
+  <ion-row>
+    <ion-col>
+  <button ion-button block icon-start style="text-transform: none;" (click)="doLogin()" color="blue">
     <ion-icon name="logo-linkedin"></ion-icon>
     LinkedIn ile Giriş
   </button>
-  <!-- <button ion-button icon-start style="text-transform: none;" (click)="getLinkedPerson()" color="blue">
-    <ion-icon name="logo-linkedin"></ion-icon>
-    getPerson
-  </button> -->
-  <!-- <script type="in/Login"></script> -->
-
+</ion-col>
+</ion-row>
 </ion-content>

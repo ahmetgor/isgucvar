@@ -28,21 +28,21 @@
     <ion-item>
     <ion-label floating>Uzmanlık Seçin</ion-label>
     <ion-select [(ngModel)]="subcatid" interface="popover" cancelText="İptal" okText="Tamam" name="subcatid">
-      <ion-option *ngFor="let subcatitem of subcatList" value="{{subcatitem}}" (ionSelect)="addUzm()">{{subcatitem}}</ion-option>
+      <ion-option *ngFor="let subcatitem of subcatList" value="{{subcatitem}}">{{subcatitem}}</ion-option>
     </ion-select>
     </ion-item>
 
-    <!-- <button ion-button icon-start clear align="center" color="secondary"
+    <button ion-button icon-start clear align="center" color="secondary"
           style="text-transform: none;"  (click)="addUzm()">
     <ion-icon name="add"></ion-icon>
           Ekle
-      </button> -->
+      </button>
 </div>
 
 <div *ngIf="person.uzmanlik && person.uzmanlik?.length != 0">
 <ion-grid>
 <ion-row *ngFor="let uzmanitem of person.uzmanlik">
-  <ion-col col-8>
+  <ion-col col-7>
     <ion-item>
     <ion-label floating>Uzmanlık</ion-label>
     <ion-input type="text" [(ngModel)]="uzmanitem.id" readonly [ngModelOptions]="{standalone: true}"></ion-input>

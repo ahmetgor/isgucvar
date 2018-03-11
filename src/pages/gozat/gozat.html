@@ -63,10 +63,10 @@
   <!-- <ion-list-header>
   </ion-list-header> -->
   <ion-item>
-    <ion-note item-start> Uyum:</ion-note>
+    <ion-note item-start color="dark">Uyum:</ion-note>
     <ion-badge item-end color="secondary">% {{gozat.puan}}</ion-badge>
 
-    <ion-range item-end min="0" max="100" step="5" snaps="true" [(ngModel)]="gozat.puan" color="primary" disabled>
+    <ion-range item-start min="0" max="100" step="5" snaps="true" [(ngModel)]="gozat.puan" color="primary" disabled>
       <ion-icon range-left color="danger" name="help-circle"></ion-icon>
       <ion-icon range-right color="secondary" name="happy"></ion-icon>
     </ion-range>

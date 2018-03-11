@@ -23,6 +23,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { IonicStorageModule } from '@ionic/storage';
+import { SuperTabsModule } from 'ionic2-super-tabs';
 
 class InAppBrowserMock extends InAppBrowser {
   open() {
@@ -51,7 +52,8 @@ class InAppBrowserMock extends InAppBrowser {
     HttpModule,
     IonicModule.forRoot(MyApp),
     BrowserAnimationsModule,
-    IonicStorageModule.forRoot()
+    IonicStorageModule.forRoot(),
+    SuperTabsModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
