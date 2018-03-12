@@ -20,9 +20,6 @@
     <ion-option *ngFor="let catitem of cat; let i = index" value="{{catitem.id}}">{{catitem.id}}</ion-option>
   </ion-select>
   </ion-item>
-  <!-- <button ion-button icon-only large clear (click)="goLinked()">
-  <ion-icon name="logo-linkedin" large color="blue"></ion-icon>
-</button> -->
 
 <div *ngIf="subcatList && subcatList.length != 0">
     <ion-item>
@@ -32,7 +29,7 @@
     </ion-select>
     </ion-item>
 
-    <button ion-button icon-start clear align="center" color="secondary"
+    <button ion-button icon-start outline round align="center" color="secondary"
           style="text-transform: none;"  (click)="addUzm()">
     <ion-icon name="add"></ion-icon>
           Ekle
