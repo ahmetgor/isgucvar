@@ -49,7 +49,7 @@
   <ion-item-sliding *ngFor="let mesaj of cloneMessageList" #item>
   <ion-item>
     <!-- <ion-icon [name]="item.icon" item-left></ion-icon> -->
-    <ion-badge  [color]="getColor(mesaj.from_name)">
+    <ion-badge [color]="getColor(mesaj.from_name)">
       {{mesaj.from_name}}</ion-badge>
     <ion-note> {{mesaj.tarih | date:"dd/MM/yy HH:mm"}}</ion-note>
     <p>

@@ -60,7 +60,7 @@
     </ion-col>
   </ion-row>
 
-  <ion-row>
+  <!-- <ion-row>
   <ion-col center text-start>
     <button ion-button clear small icon-left [style.color]="person.github ? 'purple': 'lightgrey'" (click)="goLink(person.github)">
       <ion-icon name="logo-github" icon-left></ion-icon>
@@ -73,11 +73,17 @@
     LinkedIn
   </button>
   </ion-col>
-  </ion-row>
+  </ion-row> -->
 
   <ion-row>
-    <ion-col center text-left>
-      <button ion-button icon-left color='secondary' (click)="goTercih()">
+    <ion-col text-end col-auto>
+      <button ion-button clear float-right icon-only (click)="goLink(person.siteStandardProfileRequest.url)">
+      <ion-icon name="logo-linkedin" color="blue"></ion-icon>
+      <!-- LinkedIn -->
+    </button>
+  </ion-col>
+    <ion-col text-center>
+      <button ion-button round icon-left color='secondary' (click)="goTercih()">
         <ion-icon name="create"></ion-icon>
         Kriter Seç
       </button>
@@ -92,12 +98,13 @@
       <ion-icon name="logo-linkedin" color="blue"></ion-icon>
     </button>
     </ion-col> -->
-    <ion-col center text-right>
-      <button ion-button icon-left (click)="goSettings()">
-      <ion-icon name="settings"></ion-icon>
-      Ayarlar
+
+    <ion-col text-end col-auto>
+      <button ion-button clear float-right icon-only (click)="goSettings()">
+      <ion-icon name="settings" color="darkgrey"></ion-icon>
+      <!-- Ayarlar -->
     </button>
-    </ion-col>
+  </ion-col>
 
   </ion-row>
 </ion-grid>

@@ -12,17 +12,20 @@ export class EslesmePage {
   person: any;
   eslesmeList:any = [];
   removed: boolean = false;
+  isEmpty: boolean;
   constructor(public navCtrl: NavController, public personSer: PersonProvider) {
 
   }
 
   ionViewDidEnter() {
+    this.isEmpty = false;
       console.log('ionViewDidLoad EslesmePage');
       this.person = this.personSer.person;
       this.personSer.getEslesme(this.person.like, this.person.id)
       .then((res) => {
         // this.searching = false;
         this.eslesmeList = res;
+        if(this.eslesmeList.length == 0) this.isEmpty = true;
         console.log(res);
       });
     }
@@ -34,6 +37,7 @@ export class EslesmePage {
       this.removed = true;
       this.person.like = this.person.like.filter(item => item !== value);
       this.eslesmeList = this.eslesmeList.filter(item => item.id !== value);
+      if(this.eslesmeList.length == 0) this.isEmpty = true;
       this.personSer.updateTercih(this.person)
       .then((res) => {
         console.log(JSON.stringify(res)+" yeniperson");

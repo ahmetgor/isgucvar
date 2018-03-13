@@ -10,10 +10,17 @@
   </button>
 </ion-fab>
 
-  <div *ngIf="isEmpty" color="light">
-    <p text-center color="light">
-      Aradığınız kriterlere uygun profil bulunamadı.
-    </p>
+  <div *ngIf="isEmpty">
+    <ion-item text-wrap>
+    <ion-label>
+      Aradığınız kriterlere uygun profil şimdilik yok. Kriterlerinizi güncelleyip deneyebilirsiniz :)
+    </ion-label>
+  </ion-item>
+    <ion-row text-center>
+      <ion-col>
+        <img class="img-isguc"  src="assets/imgs/isgucvar.png" />
+      </ion-col>
+    </ion-row>
   </div>
 
   <ion-card [@flyInOut]="gozat.state" *ngFor="let gozat of gozatList">
@@ -64,7 +71,7 @@
   </ion-list-header> -->
   <ion-item>
     <ion-note item-start color="dark">Uyum:</ion-note>
-    <ion-badge item-end color="secondary">% {{gozat.puan}}</ion-badge>
+    <ion-badge item-end [color]="getColor(gozat.puan)">% {{gozat.puan}}</ion-badge>
 
     <ion-range item-start min="0" max="100" step="5" snaps="true" [(ngModel)]="gozat.puan" color="primary" disabled>
       <ion-icon range-left color="danger" name="help-circle"></ion-icon>
@@ -98,7 +105,7 @@
 
 </ion-card>
 
-<ion-infinite-scroll *ngIf="scrollEnable" (ionInfinite)="doInfinite($event)">
+<ion-infinite-scroll  (ionInfinite)="doInfinite($event)">
 <ion-infinite-scroll-content
 loadingText="Sonuçlar yükleniyor...">
 </ion-infinite-scroll-content>

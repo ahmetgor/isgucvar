@@ -53,10 +53,11 @@ export class GozatPage {
     this.person = this.personSer.person;
     this.personSer.getPersons(this.person, this.slice)
     .then((res) => {
+      this.slice = this.slice+2;
       // this.searching = false;
       this.gozatList = res;
       console.log(res);
-      if (Object.keys(this.gozatList).length == 0) this.isEmpty = true;
+      if (this.gozatList.length == 0) this.isEmpty = true;
     });
   }
 
@@ -76,6 +77,18 @@ export class GozatPage {
     console.log("heb");
   this.person.like.push(gozatItem.id);
   this.gozatList = this.gozatList.filter(item => item.id !== gozatItem.id);
+  console.log(this.gozatList);
+if (this.gozatList.length == 0) {
+  this.slice = 0;
+  this.personSer.getPersons(this.person, this.slice)
+  .then((res) => {
+    this.slice = this.slice+2;
+    this.gozatList = res;
+    if (this.gozatList.length == 0) this.isEmpty = true;
+
+  });
+}
+
     gozatItem.state = 'in';
   }, 400);
 
@@ -88,6 +101,18 @@ export class GozatPage {
     console.log("heb1");
     this.person.dislike.push(gozatItem.id);
     this.gozatList = this.gozatList.filter(item => item.id !== gozatItem.id);
+
+    if (this.gozatList.length == 0) {
+      this.slice = 0;
+
+      this.personSer.getPersons(this.person, this.slice)
+      .then((res) => {
+        this.slice = this.slice+2;
+        this.gozatList = res;
+        if (this.gozatList.length == 0) this.isEmpty = true;
+
+      });
+    }
     gozatItem.state = 'in';
   }, 400);
   }
@@ -96,9 +121,10 @@ export class GozatPage {
   console.log('Begin async operation');
 
   setTimeout(() => {
-    this.slice = this.slice+2;
     this.personSer.getPersons(this.person, this.slice)
     .then((res) => {
+      this.slice = this.slice+2;
+
       if (Object.keys(res).length == 0) this.scrollEnable = false;
       // this.searching = false;
       // console.log(Object.keys(res).length == 0);
@@ -109,7 +135,8 @@ export class GozatPage {
     console.log('Async operation has ended');
 
   }
-      console.log(res);
+  if (this.gozatList.length == 0) this.isEmpty = true;
+      // console.log(res);
     });
     infiniteScroll.complete();
   }, 500);
@@ -120,5 +147,13 @@ export class GozatPage {
     var myWindow = window.open(link, '_system');
     // window.location.href = "mailto:destek.isgucvarisveren@isgucvar.com";
     // myWindow.close();
+  }
+
+  getColor(puan: number) {
+    if (puan > 79)
+    return "darkgreen";
+    else if (puan> 51 && puan<80)
+    return "secondary";
+    else return "gold";
   }
 }

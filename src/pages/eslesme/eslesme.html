@@ -8,6 +8,19 @@
 
 <ion-content>
 
+  <div *ngIf="isEmpty">
+    <ion-item text-wrap>
+    <ion-label>
+      Şimdilik eşleşmeniz yok, ama bir gün mutlaka olacak :)
+    </ion-label>
+  </ion-item>
+    <ion-row text-center>
+      <ion-col>
+        <img class="img-isguc"  src="assets/imgs/isgucvar.png" />
+      </ion-col>
+    </ion-row>
+  </div>
+
 <div *ngIf="eslesmeList">
 
   <ion-card *ngFor="let eslesme of eslesmeList">
@@ -60,11 +73,17 @@
       {{eslesme.telefon}}</p>
     </ion-col>
   </ion-row>
+</ion-item>
+
   <ion-row>
   <ion-col center text-start>
-    <button ion-button clear small icon-left [style.color]="person.github ? 'purple': 'lightgrey'" (click)="goLink(eslesme.github)">
+    <!-- <button ion-button clear small icon-left [style.color]="person.github ? 'purple': 'lightgrey'" (click)="goLink(eslesme.github)">
       <ion-icon name="logo-github"></ion-icon>
       Github
+    </button> -->
+    <button ion-button small icon-left round (click)="remove(eslesme.id)">
+      <ion-icon name="backspace"></ion-icon>
+      Listeden Çıkar
     </button>
   </ion-col>
   <ion-col center text-end>
@@ -74,21 +93,19 @@
   </button>
   </ion-col>
 </ion-row>
-</ion-item>
-<ion-item>
+<!-- <ion-item> -->
   <!-- <ion-buttons start> -->
-  <button ion-button item-start icon-left (click)="remove(eslesme.id)">
-    <ion-icon name="backspace"></ion-icon>
-    Listeden Çıkar
-  </button>
+
 <!-- </ion-buttons>
   <ion-buttons end> -->
-<button ion-button item-end icon-left color="secondary" (click)="chat(eslesme.id, eslesme.formattedName)">
+  <ion-row>
+  <ion-col>
+<button ion-button block small round icon-left color="secondary" (click)="chat(eslesme.id, eslesme.formattedName)">
   <ion-icon name="chatbubbles"></ion-icon>
   Mesajlar
 </button>
-<!-- </ion-buttons> -->
-</ion-item>
+</ion-col>
+</ion-row>
 
 </ion-card>
 </div>
