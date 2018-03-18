@@ -24,6 +24,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { IonicStorageModule } from '@ionic/storage';
 import { SuperTabsModule } from 'ionic2-super-tabs';
+import { MessageProvider } from '../providers/message';
 
 class InAppBrowserMock extends InAppBrowser {
   open() {
@@ -73,7 +74,8 @@ class InAppBrowserMock extends InAppBrowser {
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthProvider,
     PersonProvider,
-    InAppBrowser
+    InAppBrowser,
+    MessageProvider
     // LinkedIn
   ]
 })

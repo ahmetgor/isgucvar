@@ -21,11 +21,11 @@
   <!-- <ion-item-divider color="light">
     Mesaj Yaz:
   </ion-item-divider> -->
-<ion-item>
+<!-- <ion-item>
   <ion-label floating>Konu (isteğe bağlı)</ion-label>
   <ion-input type="text" [(ngModel)]="konu" clearInput="true" name="konu">
   </ion-input>
-</ion-item>
+</ion-item> -->
 <ion-item>
   <ion-label floating>Mesaj</ion-label>
   <ion-textarea type="text" [(ngModel)]="mesaj" clearInput="true" name="mesaj" rows="2" required>
@@ -33,7 +33,7 @@
 </ion-item>
 <p>
 </p>
-<button ion-button block icon-left [disabled]="!mesajForm.form.valid" (click)="send()">
+<button ion-button block round icon-left [disabled]="!mesajForm.form.valid" (click)="send()">
   <ion-icon name="send"></ion-icon>
   Gönder
 </button>
@@ -46,14 +46,14 @@
 </ion-item-divider>
 
 <ion-list text-wrap>
-  <ion-item-sliding *ngFor="let mesaj of cloneMessageList" #item>
+  <ion-item-sliding *ngFor="let mesaj of messageListCl" #item>
   <ion-item>
     <!-- <ion-icon [name]="item.icon" item-left></ion-icon> -->
     <ion-badge [color]="getColor(mesaj.from_name)">
       {{mesaj.from_name}}</ion-badge>
     <ion-note> {{mesaj.tarih | date:"dd/MM/yy HH:mm"}}</ion-note>
     <p>
-      <b>{{mesaj.konu}}</b> : {{mesaj.text}}
+      <b>{{mesaj.konu}}</b> - {{mesaj.text}}
     </p>
   </ion-item>
 

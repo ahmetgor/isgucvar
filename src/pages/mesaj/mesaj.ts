@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ItemSliding } from 'ionic-angular';
 import { PersonProvider } from '../../providers/person';
+import { MessageProvider } from '../../providers/message';
 
 /**
  * Generated class for the MesajPage page.
@@ -22,8 +23,10 @@ export class MesajPage {
   mesaj: string;
   konu: string;
   cloneMessageList: any = [];
+  messageListCl : any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public personSer: PersonProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public personSer: PersonProvider,
+              public messageSer: MessageProvider) {
   }
 
   ionViewDidEnter() {
@@ -33,13 +36,20 @@ export class MesajPage {
     // this.cloneMessageList = JSON.parse(JSON.stringify(this.personSer.person.messages));
     this.person = this.personSer.person;
     this.cloneMessageList = this.person.messages.filter(item => item.to == this.to_id || item.from == this.to_id);
+    // console.log(this.person.id+ "   "+this.to_id)
+    this.messageSer.getDocuments(this.person.id, this.to_id)
+    .then((res) => {
+      console.log(JSON.stringify(res));
+      this.messageListCl = res;
+    });
 
-    console.log(JSON.stringify(this.person));
-    console.log(this.to_id);
+    // console.log(JSON.stringify(this.person));
+    // console.log(this.to_id);
   }
 
   send() {
     let mesajItem: any = {};
+    mesajItem._id = new Date();
     mesajItem.to = this.to_id;
     mesajItem.from = this.person.id;
     mesajItem.from_name = this.person.formattedName;
@@ -47,26 +57,29 @@ export class MesajPage {
     mesajItem.text = this.mesaj;
     mesajItem.konu = this.konu;
     mesajItem.tarih = Date.now();
-    this.person.messages.push(mesajItem);
-    this.cloneMessageList.push(mesajItem);
-    this.personSer.sendMessage(mesajItem, "gönderildi")
-    .then((res) => {
-      this.mesaj = "";
-      this.konu = "";
-      console.log(res);
-    });
+    // this.person.messages.push(mesajItem);
+    // this.cloneMessageList.push(mesajItem);
+    // this.personSer.sendMessage(mesajItem, "gönderildi")
+    // .then((res) => {
+    //   this.mesaj = "";
+    //   this.konu = "";
+    //   console.log(res);
+    // });
+    this.messageSer.addDocument(mesajItem);
+
   }
 
   delete(slide: ItemSliding, mesaj: any) {
     console.log(JSON.stringify(mesaj));
-  this.cloneMessageList = this.cloneMessageList
-  .filter(item => item.to !== mesaj.to || item.from !== mesaj.from || item.text !== mesaj.text);
-  this.person.messages = this.person.messages
-  .filter(item => item.to !== mesaj.to || item.from !== mesaj.from || item.text !== mesaj.text);
-  this.personSer.sendMessage(mesaj, "silindi")
-  .then((res) => {
-    console.log(res);
-  });
+  // this.cloneMessageList = this.cloneMessageList
+  // .filter(item => item.to !== mesaj.to || item.from !== mesaj.from || item.text !== mesaj.text);
+  // this.person.messages = this.person.messages
+  // .filter(item => item.to !== mesaj.to || item.from !== mesaj.from || item.text !== mesaj.text);
+  // this.personSer.sendMessage(mesaj, "silindi")
+  // .then((res) => {
+  //   console.log(res);
+  // });
+this.messageSer.delDocument(mesaj);
   slide.close();
 }
 

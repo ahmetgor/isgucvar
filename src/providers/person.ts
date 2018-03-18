@@ -136,24 +136,24 @@ export class PersonProvider {
       });
     }
 
-    sendMessage(message: any, operation: string) {
-      return new Promise((resolve, reject) => {
-
-        let headers = new HttpHeaders();
-        headers.append('Content-Type', 'application/json');
-        // headers.append('Authorization', this.authService.token);
-        this.http.put(this.url + 'message/' + `?operation=${operation}`, message, {headers: headers})
-          .subscribe(res => {
-            // this.loading.dismiss();
-            this.presentToast('Mesaj '+ operation + '!');
-
-            console.log(res);
-            resolve(res);
-          }, (err) => {
-            this.presentToast('Hata oluştu, lütfen tekrar deneyin!');
-          });
-      });
-    }
+    // sendMessage(message: any, operation: string) {
+    //   return new Promise((resolve, reject) => {
+    //
+    //     let headers = new HttpHeaders();
+    //     headers.append('Content-Type', 'application/json');
+    //     // headers.append('Authorization', this.authService.token);
+    //     this.http.put(this.url + 'message/' + `?operation=${operation}`, message, {headers: headers})
+    //       .subscribe(res => {
+    //         // this.loading.dismiss();
+    //         this.presentToast('Mesaj '+ operation + '!');
+    // 
+    //         console.log(res);
+    //         resolve(res);
+    //       }, (err) => {
+    //         this.presentToast('Hata oluştu, lütfen tekrar deneyin!');
+    //       });
+    //   });
+    // }
 
     presentToast(message) {
     let toast = this.toastCtrl.create({
