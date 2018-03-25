@@ -11,6 +11,7 @@ import { LoginPage } from '../pages/login/login';
 import { ProfilePage } from '../pages/profile/profile';
 import { SettingsPage } from '../pages/settings/settings';
 import { MesajPage } from '../pages/mesaj/mesaj';
+import { PopoverPage } from '../pages/popover/popover';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -28,10 +29,8 @@ import { MessageProvider } from '../providers/message';
 
 class InAppBrowserMock extends InAppBrowser {
   open() {
-
   }
   on() {
-
   }
 }
 
@@ -45,7 +44,8 @@ class InAppBrowserMock extends InAppBrowser {
     LoginPage,
     SettingsPage,
     ProfilePage,
-    MesajPage
+    MesajPage,
+    PopoverPage
   ],
   imports: [
     BrowserModule,
@@ -66,7 +66,8 @@ class InAppBrowserMock extends InAppBrowser {
     LoginPage,
     SettingsPage,
     ProfilePage,
-    MesajPage
+    MesajPage,
+    PopoverPage
   ],
   providers: [
     StatusBar,

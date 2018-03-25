@@ -14,8 +14,8 @@ import {LoadingController, ToastController} from 'ionic-angular';
 @Injectable()
 export class PersonProvider {
 
-  // url : string = 'http://127.0.0.1:8080/api/persons/';
-  url : string = 'https://isgucvarserver.herokuapp.com/api/persons/'
+  url : string = 'http://127.0.0.1:8080/api/persons/';
+  // url : string = 'https://isgucvarserver.herokuapp.com/api/persons/'
 
   loading: any;
   person: any;
@@ -146,7 +146,7 @@ export class PersonProvider {
     //       .subscribe(res => {
     //         // this.loading.dismiss();
     //         this.presentToast('Mesaj '+ operation + '!');
-    // 
+    //
     //         console.log(res);
     //         resolve(res);
     //       }, (err) => {

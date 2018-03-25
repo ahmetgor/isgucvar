@@ -6,9 +6,9 @@ import {
   animate,
   transition
 } from '@angular/animations';
-import { NavController } from 'ionic-angular';
+import { NavController, PopoverController } from 'ionic-angular';
 import { PersonProvider } from '../../providers/person';
-
+import { PopoverPage } from '../popover/popover';
 
 @Component({
   selector: 'page-gozat',
@@ -40,7 +40,7 @@ export class GozatPage {
   isEmpty: boolean;
   // flyInOutState: String = 'in';
 
-  constructor(public navCtrl: NavController, public personSer: PersonProvider) {
+  constructor(public navCtrl: NavController, public personSer: PersonProvider, public popoverCtrl: PopoverController) {
     // this.gozatList.push(this.personSer.person);
     console.log(JSON.stringify(this.gozatList));
   }
@@ -64,21 +64,33 @@ export class GozatPage {
   ionViewWillLeave() {
     this.personSer.updateTercih(this.person)
     .then((res) => {
-      // console.log(JSON.stringify(res)+" yeniperson");
+      this.person = res;
           }, (err) => {
           });
   }
 
   like(gozatItem: any) {
-    console.log("hebe");
     gozatItem.state = 'out';
 
   setTimeout(() => {
-    console.log("heb");
+    console.log(gozatItem.id);
+    console.log(this.person.likedBy);
   this.person.like.push(gozatItem.id);
   this.gozatList = this.gozatList.filter(item => item.id !== gozatItem.id);
-  console.log(this.gozatList);
+  if(this.person.likedBy.findIndex((likedByItem) => likedByItem.id === gozatItem.id ) > -1) {
+      let popover = this.popoverCtrl.create(PopoverPage);
+      popover.present({
+        ev: ""
+      });
+  }
+  // console.log(this.gozatList);
 if (this.gozatList.length == 0) {
+  this.personSer.updateTercih(this.person)
+  .then((res) => {
+    this.person = res;
+        }, (err) => {
+        });
+
   this.slice = 0;
   this.personSer.getPersons(this.person, this.slice)
   .then((res) => {
@@ -104,6 +116,11 @@ if (this.gozatList.length == 0) {
 
     if (this.gozatList.length == 0) {
       this.slice = 0;
+      this.personSer.updateTercih(this.person)
+      .then((res) => {
+        this.person = res;
+            }, (err) => {
+            });
 
       this.personSer.getPersons(this.person, this.slice)
       .then((res) => {
@@ -121,6 +138,12 @@ if (this.gozatList.length == 0) {
   console.log('Begin async operation');
 
   setTimeout(() => {
+    this.personSer.updateTercih(this.person)
+    .then((res) => {
+      this.person = res;
+          }, (err) => {
+          });
+
     this.personSer.getPersons(this.person, this.slice)
     .then((res) => {
       this.slice = this.slice+2;
