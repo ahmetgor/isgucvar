@@ -73,7 +73,7 @@ tagcat: string = "it";
   }
 
   addUzm() {
-    if(this.person.uzmanlik.length<3) {
+    if(this.person.uzmanlik.length<4) {
       this.person.uzmanlik.push({"id": this.subcatid, "yil":1});
       this.presentToast("Uzmanlık eklendi.", 1500);
       if(this.person.uzmanlik.length > 0) {
@@ -82,7 +82,7 @@ tagcat: string = "it";
         findIndex(obj => obj.subcat.includes(this.person.uzmanlik[this.person.uzmanlik.length-1].id))].cat;
       }
     }
-    else this.presentToast("En fazla 3 adet seçilebilir.");
+    else this.presentToast("En fazla 4 adet seçilebilir.");
   }
 
   removeUzm(value: string) {
@@ -101,11 +101,11 @@ tagcat: string = "it";
   setTag(value: string) {
     console.log(value);
     console.log(this.tagid);
-    if(this.person.tags.length<6) {
+    if(this.person.tags.length<8) {
     this.person.tags.push({"id": value, "yil":1});
     this.presentToast("Mesleki bilgi eklendi.", 1500);
   }
-    else this.presentToast("En fazla 6 adet seçilebilir.");
+    else this.presentToast("En fazla 8 adet seçilebilir.");
     console.log(this.person.tags);
     this.tagid = '';
     this.allTags = [];
