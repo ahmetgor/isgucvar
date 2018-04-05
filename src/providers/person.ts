@@ -118,14 +118,15 @@ export class PersonProvider {
       });
     }
 
-    getEslesme(like: Array<any>, personId: string){
+    getEslesme(person: any){
 
       // this.showLoader();
       let headers = new HttpHeaders();
         // headers.append('Authorization', this.authService.token);
         headers.append('Content-Type', 'application/json');
         return new Promise((resolve, reject) => {
-        this.http.get(this.url+'eslesme/' + `?like=${like}&id=${personId}`, {headers: headers})
+        // this.http.get(this.url+'eslesme/' + `?like=${like}&id=${personId}`, {headers: headers})
+        this.http.post(this.url+'eslesme/', person, {headers: headers})
           .subscribe(data => {
             // this.loading.dismiss();
             resolve(data);

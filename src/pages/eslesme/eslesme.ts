@@ -11,7 +11,7 @@ export class EslesmePage {
 
   person: any;
   eslesmeList:any = [];
-  removed: boolean = false;
+  // removed: boolean = false;
   isEmpty: boolean;
   constructor(public navCtrl: NavController, public personSer: PersonProvider) {
 
@@ -21,7 +21,7 @@ export class EslesmePage {
     this.isEmpty = false;
       console.log('ionViewDidLoad EslesmePage');
       this.person = this.personSer.person;
-      this.personSer.getEslesme(this.person.like, this.person.id)
+      this.personSer.getEslesme(this.person)
       .then((res) => {
         // this.searching = false;
         this.eslesmeList = res;
@@ -34,9 +34,10 @@ export class EslesmePage {
     // }
 
     remove(value: string) {
-      this.removed = true;
+      // this.removed = true;
       this.person.like = this.person.like.filter(item => item !== value);
       this.eslesmeList = this.eslesmeList.filter(item => item.id !== value);
+      this.person.eslesme = this.person.eslesme.filter(item => item.id !== value);
       if(this.eslesmeList.length == 0) this.isEmpty = true;
       this.personSer.updateTercih(this.person)
       .then((res) => {
