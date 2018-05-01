@@ -36,6 +36,7 @@ showTagEkle: boolean = false;
 subcatList: Array<string> = [];
 sehirler: Array<string> = [];
 tagcat: string = "it";
+tercihLiked: any = [];
 
   constructor(public navCtrl: NavController, public personSer: PersonProvider, public toastCtrl: ToastController,
               public alertCtrl: AlertController) {
@@ -73,7 +74,7 @@ tagcat: string = "it";
   }
 
   addUzm() {
-    if(this.person.uzmanlik.length<4) {
+    if(this.person.uzmanlik.length < 4) {
       this.person.uzmanlik.push({"id": this.subcatid, "yil":1});
       this.presentToast("Uzmanlık eklendi.", 1500);
       if(this.person.uzmanlik.length > 0) {
@@ -111,7 +112,6 @@ tagcat: string = "it";
     this.allTags = [];
   }
 
-
   removeTag(value) {
     if(this.person.tags.length>1)
     this.person.tags = this.person.tags.filter(item => item.id !== value);
@@ -120,14 +120,16 @@ tagcat: string = "it";
 
   save() {
     // console.log(JSON.stringify(this.personSer.person)+"save()");
+    this.tercihLiked = this.person.like.slice();
     this.person.like = [];
     this.person.dislike = [];
     if (this.person.uzmanlik.length==0 || this.person.tags.length==0)
     this.presentToast("Lütfen en az 1 adet uzmanlık ve bilgi seçin.");
     else {
-    this.personSer.updateTercih(this.person)
+    this.personSer.updateTercih(this.person, {}, {}, {}, this.tercihLiked)
     .then((res) => {
       this.personSer.person = res;
+      this.tercihLiked = [];
       console.log(JSON.stringify(res)+" yeniperson");
       this.navCtrl.pop();
           }, (err) => {

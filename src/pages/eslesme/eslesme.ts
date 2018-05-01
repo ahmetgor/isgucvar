@@ -13,6 +13,7 @@ export class EslesmePage {
   eslesmeList:any = [];
   // removed: boolean = false;
   isEmpty: boolean;
+  eslesmeDel:any = [];
   constructor(public navCtrl: NavController, public personSer: PersonProvider) {
 
   }
@@ -38,10 +39,12 @@ export class EslesmePage {
       this.person.like = this.person.like.filter(item => item !== value);
       this.eslesmeList = this.eslesmeList.filter(item => item.id !== value);
       this.person.eslesme = this.person.eslesme.filter(item => item.id !== value);
+      this.eslesmeDel.push(value);
       if(this.eslesmeList.length == 0) this.isEmpty = true;
-      this.personSer.updateTercih(this.person)
+      this.personSer.updateTercih(this.person, {}, {}, this.eslesmeDel, {})
       .then((res) => {
         console.log(JSON.stringify(res)+" yeniperson");
+        this.eslesmeDel = [];
             }, (err) => {
             });
     }

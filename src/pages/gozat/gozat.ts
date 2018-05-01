@@ -38,6 +38,8 @@ export class GozatPage {
   slice: number = 0;
   scrollEnable: boolean = true;
   isEmpty: boolean;
+  yeniEslesme:any = [];
+  yeniLikedBy:any = [];
   // flyInOutState: String = 'in';
 
   constructor(public navCtrl: NavController, public personSer: PersonProvider, public popoverCtrl: PopoverController) {
@@ -62,9 +64,11 @@ export class GozatPage {
   }
 
   ionViewWillLeave() {
-    this.personSer.updateTercih(this.person)
+    this.personSer.updateTercih(this.person, this.yeniLikedBy, this.yeniEslesme, {}, {})
     .then((res) => {
       this.person = res;
+      this.yeniLikedBy = [];
+      this.yeniEslesme = [];
           }, (err) => {
           });
   }
@@ -76,18 +80,23 @@ export class GozatPage {
     console.log(gozatItem.id);
     console.log(this.person.likedBy);
   this.person.like.push(gozatItem.id);
+  this.yeniLikedBy.push(gozatItem.id);
   this.gozatList = this.gozatList.filter(item => item.id !== gozatItem.id);
-  if(this.person.likedBy.findIndex((likedByItem) => likedByItem.id === gozatItem.id ) > -1) {
+  if(this.person.likedBy.findIndex((likedByItem) => likedByItem === gozatItem.id ) > -1) {
+      this.person.eslesme.push({id: gozatItem.id, tarih: Date.now()});
+      this.yeniEslesme.push(gozatItem.id);
       let popover = this.popoverCtrl.create(PopoverPage);
       popover.present({
         ev: ""
       });
   }
   // console.log(this.gozatList);
-if (this.gozatList.length == 0) {
-  this.personSer.updateTercih(this.person)
+if (this.gozatList.length == 0 ||this.yeniLikedBy.length > 10) {
+  this.personSer.updateTercih(this.person, this.yeniLikedBy, this.yeniEslesme, {}, {})
   .then((res) => {
     this.person = res;
+    this.yeniLikedBy = [];
+    this.yeniEslesme = [];
         }, (err) => {
         });
 
@@ -116,9 +125,11 @@ if (this.gozatList.length == 0) {
 
     if (this.gozatList.length == 0) {
       this.slice = 0;
-      this.personSer.updateTercih(this.person)
+      this.personSer.updateTercih(this.person, this.yeniLikedBy, this.yeniEslesme, {}, {})
       .then((res) => {
         this.person = res;
+        this.yeniLikedBy = [];
+        this.yeniEslesme = [];
             }, (err) => {
             });
 
@@ -138,9 +149,11 @@ if (this.gozatList.length == 0) {
   console.log('Begin async operation');
 
   setTimeout(() => {
-    this.personSer.updateTercih(this.person)
+    this.personSer.updateTercih(this.person, this.yeniLikedBy, this.yeniEslesme, {}, {})
     .then((res) => {
       this.person = res;
+      this.yeniLikedBy = [];
+      this.yeniEslesme = [];
           }, (err) => {
           });
 

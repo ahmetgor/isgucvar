@@ -53,10 +53,11 @@ export class PersonProvider {
     });
   }
 
-  updateTercih(kayit: any){
+  updateTercih(person: any, likedBy:any, eslesme:any, eslesmeDel:any, tercih: any){
     // this.showLoader();
     return new Promise((resolve, reject) => {
 
+      let kayit = {person: person, likedBy: likedBy, eslesme: eslesme, eslesmeDel: eslesmeDel, tercih:tercih};
       let headers = new HttpHeaders();
       headers.append('Content-Type', 'application/json');
       // headers.append('Authorization', this.authService.token);
