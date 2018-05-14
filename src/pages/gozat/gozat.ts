@@ -85,13 +85,23 @@ export class GozatPage {
   if(this.person.likedBy.findIndex((likedByItem) => likedByItem === gozatItem.id ) > -1) {
       this.person.eslesme.push({id: gozatItem.id, tarih: Date.now()});
       this.yeniEslesme.push(gozatItem.id);
-      let popover = this.popoverCtrl.create(PopoverPage);
-      popover.present({
-        ev: ""
+      this.personSer.updateTercih(this.person, this.yeniLikedBy, this.yeniEslesme, {}, {})
+      .then((res) => {
+        this.person = res;
+        this.yeniLikedBy = [];
+        this.yeniEslesme = [];
+            }, (err) => {
+            });
+      let popover = this.popoverCtrl.create(PopoverPage,{
+        person: this.person.pictureUrl,
+        gozat: gozatItem.pictureUrl,
+        personAd: this.person.formattedName,
+        gozatAd: gozatItem.formattedName
       });
+      popover.present();
   }
   // console.log(this.gozatList);
-if (this.gozatList.length == 0 ||this.yeniLikedBy.length > 10) {
+if (this.gozatList.length == 0) {
   this.personSer.updateTercih(this.person, this.yeniLikedBy, this.yeniEslesme, {}, {})
   .then((res) => {
     this.person = res;

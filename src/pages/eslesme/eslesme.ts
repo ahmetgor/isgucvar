@@ -50,7 +50,7 @@ export class EslesmePage {
     }
 
     chat(id: string, formattedName: string) {
-      this.person.deneme = "deneme";
+      // this.person.deneme = "deneme";
       this.navCtrl.push(MesajPage, {id: id, formattedName: formattedName});
     }
 
