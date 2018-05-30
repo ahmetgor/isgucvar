@@ -17,13 +17,13 @@ export class TabsPage {
   tab3Root = EslesmePage;
 
   constructor(private superTabsCtrl: SuperTabsController) {
-    this.superTabsCtrl.setBadge('eslesmeTab', 5);
+    // this.superTabsCtrl.setBadge('eslesmeTab', 5);
 
   }
 
   ionViewDidEnter() {
     this.superTabsCtrl.setBadge('eslesmeTab', 5);
-    this.superTabsCtrl.setBadge('profilimTab', 5);
+    // this.superTabsCtrl.setBadge('profilimTab', 5);
 
   }
 }

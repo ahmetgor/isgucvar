@@ -1,11 +1,5 @@
 import { Component } from '@angular/core';
-import {
-  trigger,
-  state,
-  style,
-  animate,
-  transition
-} from '@angular/animations';
+import {trigger,state,style,animate,transition} from '@angular/animations';
 import { NavController, PopoverController } from 'ionic-angular';
 import { PersonProvider } from '../../providers/person';
 import { PopoverPage } from '../popover/popover';

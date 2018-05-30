@@ -2,10 +2,24 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { PersonProvider } from '../../providers/person';
 import { MesajPage } from '../mesaj/mesaj';
+import {trigger,state,style,animate,transition} from '@angular/animations';
 
 @Component({
   selector: 'page-eslesme',
-  templateUrl: 'eslesme.html'
+  templateUrl: 'eslesme.html',
+  animations: [
+
+  trigger('flyInOut', [
+    state('in', style({
+      transform: 'translate3d(0, 0, 0)'
+    })),
+    state('out1', style({
+      transform: 'translate3d(-150%, 0, 0)'
+    })),
+    transition('* => out1', animate('300ms ease-out')),
+    transition('* => in', animate('200ms ease-out'))
+  ])
+]
 })
 export class EslesmePage {
 
@@ -34,12 +48,16 @@ export class EslesmePage {
     // ionViewWillLeave() {
     // }
 
-    remove(value: string) {
+    remove(value: any) {
       // this.removed = true;
-      this.person.like = this.person.like.filter(item => item !== value);
-      this.eslesmeList = this.eslesmeList.filter(item => item.id !== value);
-      this.person.eslesme = this.person.eslesme.filter(item => item.id !== value);
-      this.eslesmeDel.push(value);
+      value.state = 'out1';
+
+      setTimeout(() => {
+
+      this.person.like = this.person.like.filter(item => item !== value.id);
+      this.eslesmeList = this.eslesmeList.filter(item => item.id !== value.id);
+      this.person.eslesme = this.person.eslesme.filter(item => item.id !== value.id);
+      this.eslesmeDel.push(value.id);
       if(this.eslesmeList.length == 0) this.isEmpty = true;
       this.personSer.updateTercih(this.person, {}, {}, this.eslesmeDel, {})
       .then((res) => {
@@ -47,6 +65,9 @@ export class EslesmePage {
         this.eslesmeDel = [];
             }, (err) => {
             });
+
+            value.state = 'in';
+          }, 400);
     }
 
     chat(id: string, formattedName: string) {

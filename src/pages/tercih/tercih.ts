@@ -173,7 +173,7 @@ infoPressed() {
 presentSave() {
   let alert = this.alertCtrl.create({
     title: 'Kriterleriniz Değişiyor',
-    message: 'Kriterleriniz değişeceğinden eşleşme ve beğeni listeleriniz sıfırlanacaktır. Devam edilsin mi?',
+    message: 'Kriterleriniz değişeceğinden önceden gördüğünüz profiller tekrar gösterilecektir. Devam edilsin mi?',
     buttons: [
       {
         text: 'Hayır',

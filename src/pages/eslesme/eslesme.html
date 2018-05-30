@@ -23,7 +23,7 @@
 
 <div *ngIf="eslesmeList">
 
-  <ion-card *ngFor="let eslesme of eslesmeList">
+  <ion-card [@flyInOut]="eslesme.state" *ngFor="let eslesme of eslesmeList">
 
   <ion-item>
     <ion-thumbnail item-start>
@@ -81,7 +81,7 @@
       <ion-icon name="logo-github"></ion-icon>
       Github
     </button> -->
-    <button ion-button small icon-left outline round (click)="remove(eslesme.id)">
+    <button ion-button small icon-left outline round (click)="remove(eslesme)">
       <ion-icon name="backspace"></ion-icon>
       Listeden Çıkar
     </button>
