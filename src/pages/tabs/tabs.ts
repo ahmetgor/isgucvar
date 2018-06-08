@@ -22,7 +22,7 @@ export class TabsPage {
   }
 
   ionViewDidEnter() {
-    this.superTabsCtrl.setBadge('eslesmeTab', 5);
+    // this.superTabsCtrl.setBadge('eslesmeTab', 5);
     // this.superTabsCtrl.setBadge('profilimTab', 5);
 
   }

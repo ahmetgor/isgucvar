@@ -125,7 +125,7 @@ export class MessageProvider {
     presentToast(message) {
     let toast = this.toastCtrl.create({
       message: message,
-      duration: 3000,
+      duration: 2000,
       position: 'top',
       showCloseButton: true,
       closeButtonText: 'OK'

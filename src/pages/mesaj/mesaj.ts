@@ -66,7 +66,7 @@ export class MesajPage {
     //   console.log(res);
     // });
     this.messageSer.addDocument(mesajItem);
-
+    mesajItem = {};
   }
 
   delete(slide: ItemSliding, mesaj: any) {
