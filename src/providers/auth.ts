@@ -19,8 +19,8 @@ export class AuthProvider {
   accessToken: string;
   // redirectURI: any = "http://127.0.0.1:8080/api/auth/callback";
   redirectURI: any = "https://isgucvarserver.herokuapp.com/api/auth/callback";
-  linkedUrl: string = "https://api.linkedin.com/v2/people/~:(id,formatted-name,location,industry,summary,specialties"+
-    ",positions,picture-urls::(original),site-standard-profile-request,email-address)?format=json";
+  // linkedUrl: string = "https://api.linkedin.com/v2/people/~:(id,formatted-name,location,industry,summary,specialties"+
+  //   ",positions,picture-urls::(original),site-standard-profile-request,email-address)?format=json";
 
   constructor(public http: HttpClient, public loadingCtrl: LoadingController, public storage: Storage,
               private iab: InAppBrowser) {
@@ -57,6 +57,7 @@ export class AuthProvider {
         headers.append('Content-Type', 'application/json');
         // let uri = encodeURI('https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=86p3aqpfdryb6f&redirect_uri=http://localhost:8100&state=252890252890&scope=r_basicprofile');
         // this.http.get(url+`&app=${"app"}`, {headers: headers})
+        console.log("doAuth");
         this.http.get(this.url+ 'login' + `?code=${token}&state=${token2}`, {headers: headers})
           .subscribe(res => {
             let data = JSON.parse(JSON.stringify(res));
