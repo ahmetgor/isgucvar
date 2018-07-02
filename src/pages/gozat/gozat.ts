@@ -76,7 +76,9 @@ export class GozatPage {
   this.person.like.push(gozatItem.id);
   this.yeniLikedBy.push(gozatItem.id);
   this.gozatList = this.gozatList.filter(item => item.id !== gozatItem.id);
-  if(this.person.likedBy.findIndex((likedByItem) => likedByItem === gozatItem.id ) > -1) {
+
+  if(this.person.likedBy && this.person.likedBy.findIndex((likedByItem) => likedByItem === gozatItem.id ) > -1) {
+    this.person.eslesme = this.person.eslesme? this.person.eslesme : [];
       this.person.eslesme.push({id: gozatItem.id, tarih: Date.now()});
       this.yeniEslesme.push(gozatItem.id);
       this.personSer.updateTercih(this.person, this.yeniLikedBy, this.yeniEslesme, {}, {})
@@ -84,7 +86,7 @@ export class GozatPage {
         this.person = res;
         this.yeniLikedBy = [];
         this.yeniEslesme = [];
-            }, (err) => {
+      }, (err) => {
             });
       let popover = this.popoverCtrl.create(PopoverPage,{
         person: this.person.pictureUrl,

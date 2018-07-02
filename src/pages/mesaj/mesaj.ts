@@ -35,7 +35,7 @@ export class MesajPage {
     this.to_name = this.navParams.get("formattedName");
     // this.cloneMessageList = JSON.parse(JSON.stringify(this.personSer.person.messages));
     this.person = this.personSer.person;
-    this.cloneMessageList = this.person.messages.filter(item => item.to == this.to_id || item.from == this.to_id);
+    // this.cloneMessageList = this.person.messages.filter(item => item.to == this.to_id || item.from == this.to_id);
     // console.log(this.person.id+ "   "+this.to_id)
     this.messageSer.getDocuments(this.person.id, this.to_id)
     .then((res) => {
@@ -67,6 +67,7 @@ export class MesajPage {
     // });
     this.messageSer.addDocument(mesajItem);
     mesajItem = {};
+    this.mesaj = "";
   }
 
   delete(slide: ItemSliding, mesaj: any) {

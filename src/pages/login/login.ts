@@ -88,7 +88,7 @@ getProfileData() {
 
            });
    })
-.error((error) =>console.log(error+"hebe"));
+.error((error) =>console.log(JSON.stringify(error)+"hebe"));
 console.log('getProfileData1');
 
 }
