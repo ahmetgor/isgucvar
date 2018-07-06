@@ -49,10 +49,14 @@ export class GozatPage {
     this.person = this.personSer.person;
     this.personSer.getPersons(this.person, this.slice)
     .then((res) => {
+      console.log("res");
+
       this.slice = this.slice+2;
       // this.searching = false;
+      console.log(JSON.stringify(res));
+
       this.gozatList = res;
-      console.log(res);
+
       if (this.gozatList.length == 0) this.isEmpty = true;
     });
   }

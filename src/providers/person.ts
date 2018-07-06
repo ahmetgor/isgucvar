@@ -96,6 +96,7 @@ export class PersonProvider {
 
       let headers = new HttpHeaders();
       let params = new HttpParams();
+      person = JSON.parse(JSON.stringify(person));
       // params.set('person', JSON.stringify(person));
       // params.append('person', JSON.stringify(person));
 
@@ -110,6 +111,7 @@ export class PersonProvider {
           ,person
           , {headers: headers})
           .subscribe(data => {
+            JSON.stringify(data+"datadata")
             // this.loading.dismiss();
             resolve(data);
           }, (err) => {

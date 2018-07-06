@@ -22,7 +22,7 @@
       </ion-col>
     </ion-row>
   </div>
-
+  <div *ngIf="gozatList">
   <ion-card [@flyInOut]="gozat.state" *ngFor="let gozat of gozatList">
   <div>
       <ion-item>
@@ -104,6 +104,7 @@
 </div>
 
 </ion-card>
+</div>
 
 <ion-infinite-scroll  (ionInfinite)="doInfinite($event)">
 <ion-infinite-scroll-content
